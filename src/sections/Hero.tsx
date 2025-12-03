@@ -51,25 +51,27 @@ const Hero = () => {
                         تجربة مستخدم فريدة مصممة خصيصاً لتناسب احتياجاتك اليومية.
                     </p>
 
-                    <div className="flex flex-wrap gap-4 justify-end">
+                    <div className="flex flex-wrap gap-2 md:gap-4 justify-end">
                         <motion.a
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             href="#features"
-                            className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-slate-700 shadow-lg hover:shadow-xl transition-all"
+                            className="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 text-sm md:text-base rounded-2xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-slate-700 shadow-lg hover:shadow-xl transition-all"
                         >
-                            <Play size={20} className="fill-current" />
-                            <span>شاهد الفيديو</span>
+                            <Play size={16} className="fill-current md:w-5 md:h-5" />
+                            <span className="hidden sm:inline">شاهد الفيديو</span>
+                            <span className="sm:hidden">فيديو</span>
                         </motion.a>
 
                         <motion.a
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             href="#download"
-                            className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-bold shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 transition-all"
+                            className="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 text-sm md:text-base rounded-2xl bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-bold shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 transition-all"
                         >
-                            <Download size={20} />
-                            <span>حمل التطبيق مجاناً</span>
+                            <Download size={16} className="md:w-5 md:h-5" />
+                            <span className="hidden sm:inline">حمل التطبيق</span>
+                            <span className="sm:hidden">تحميل</span>
                         </motion.a>
                     </div>
 
