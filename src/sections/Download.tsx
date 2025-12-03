@@ -3,9 +3,13 @@ import { Download as DownloadIcon, Smartphone, CheckCircle2 } from 'lucide-react
 
 const Download = () => {
     return (
-        <section id="download" className="py-16 md:py-24 bg-gradient-to-br from-primary-600 to-secondary-700 relative overflow-hidden text-white">
+        <section id="download" className="py-16 md:py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
             {/* Background Patterns */}
-            <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')]"></div>
+            <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')]"></div>
+
+            {/* Gradient Overlays */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary-500/20 rounded-full blur-3xl"></div>
 
             <div className="container mx-auto px-4 relative z-10">
                 <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -18,16 +22,16 @@ const Download = () => {
                         dir="rtl"
                     >
                         <h2 className="text-3xl md:text-5xl font-black mb-4 md:mb-6 text-white leading-tight">
-                            حمل التطبيق <span className="text-yellow-300">الآن</span>
+                            حمل التطبيق <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400">الآن</span>
                             <br />
-                            <span className="text-yellow-300">واستمتع بالتجربة الكاملة</span>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400">واستمتع بالتجربة الكاملة</span>
                         </h2>
 
-                        <p className="text-lg md:text-xl text-gray-100 mb-6 md:mb-8 leading-relaxed">
+                        <p className="text-lg md:text-xl text-slate-300 mb-6 md:mb-8 leading-relaxed">
                             احصل على أحدث نسخة من تطبيق شامل آب (ShamilApp.apk) واستفد من جميع المميزات والتحسينات الجديدة.
                         </p>
 
-                        <ul className="space-y-3 md:space-y-4 mb-8 md:mb-10 text-base md:text-lg text-white">
+                        <ul className="space-y-3 md:space-y-4 mb-8 md:mb-10 text-base md:text-lg">
                             {[
                                 'تحديثات دورية ومستمرة',
                                 'حجم خفيف وأداء سريع',
@@ -40,7 +44,7 @@ const Download = () => {
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: index * 0.1 }}
-                                    className="flex items-center gap-3 justify-end text-gray-100"
+                                    className="flex items-center gap-3 justify-end text-slate-200"
                                 >
                                     <span>{item}</span>
                                     <CheckCircle2 size={20} className="text-green-400 flex-shrink-0" />
@@ -53,14 +57,14 @@ const Download = () => {
                             whileTap={{ scale: 0.95 }}
                             href="/src/apk/app-debug.apk"
                             download="ShamilApp.apk"
-                            className="inline-flex items-center gap-3 bg-white text-primary-700 px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold text-lg md:text-xl shadow-xl hover:shadow-2xl transition-all"
+                            className="inline-flex items-center gap-3 bg-gradient-to-r from-primary-600 to-secondary-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold text-lg md:text-xl shadow-xl shadow-primary-500/25 hover:shadow-2xl hover:shadow-primary-500/40 transition-all"
                         >
                             <DownloadIcon size={24} />
                             <span>تحميل التطبيق</span>
                         </motion.a>
 
-                        <p className="mt-3 md:mt-4 text-xs md:text-sm text-gray-300">
-                            الإصدار: 1.0.0 | الحجم: 45MB | التحديث: 2024
+                        <p className="mt-3 md:mt-4 text-xs md:text-sm text-slate-400">
+                            الإصدار: 1.1.0 | الحجم: 30MB | التحديث: 2025
                         </p>
                     </motion.div>
 

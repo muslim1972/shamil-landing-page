@@ -110,7 +110,7 @@ const Navbar = () => {
                                     key={link.name}
                                     href={link.href}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className="text-slate-600 hover:text-primary-600 font-medium py-2 border-b border-slate-50 last:border-0"
+                                    className="text-slate-900 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium py-2 border-b border-slate-100 dark:border-slate-800 last:border-0"
                                 >
                                     {link.name}
                                 </a>
@@ -118,7 +118,7 @@ const Navbar = () => {
                             <a
                                 href="#download"
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className="flex items-center justify-center gap-2 bg-primary-600 text-white px-5 py-3 rounded-xl font-bold mt-2"
+                                className="flex items-center justify-center gap-2 bg-gradient-to-r from-primary-600 to-secondary-600 text-white px-5 py-3 rounded-xl font-bold mt-2 shadow-lg shadow-primary-500/25"
                             >
                                 <Download size={18} />
                                 <span>تحميل التطبيق</span>

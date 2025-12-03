@@ -42,7 +42,7 @@ const Footer = () => {
                 </div>
 
                 <div className="pt-8 border-t border-slate-800 text-center flex flex-col md:flex-row items-center justify-between gap-4" dir="rtl">
-                    <p>© 2024 شامل آب. جميع الحقوق محفوظة.</p>
+                    <p>© 2025 شامل آب. جميع الحقوق محفوظة.</p>
                     <p className="flex items-center gap-1 text-sm">
                         صنع بـ <Heart size={14} className="text-red-500 fill-red-500" /> من أجل مجتمع أفضل
                     </p>
