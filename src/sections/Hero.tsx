@@ -1,7 +1,18 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Download, Play, ChevronDown, Sparkles } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const Hero = () => {
+    const [showImage, setShowImage] = useState(false);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setShowImage(prev => !prev);
+        }, 4000);
+
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <section id="hero" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
             {/* Background Elements */}
@@ -83,34 +94,58 @@ const Hero = () => {
                     className="relative order-1 lg:order-2 flex justify-center"
                 >
                     <div className="relative w-[300px] h-[600px] bg-slate-900 rounded-[3rem] border-8 border-slate-900 shadow-2xl overflow-hidden animate-float">
-                        {/* Screen Content Placeholder */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900 flex flex-col items-center justify-center text-white p-6">
-                            <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-600 rounded-2xl mb-4 flex items-center justify-center shadow-lg">
-                                <span className="text-3xl font-bold">ش</span>
-                            </div>
-                            <h3 className="text-2xl font-bold mb-2">شامل آب</h3>
-                            <p className="text-slate-400 text-center text-sm">كل تطبيقاتك في مكان واحد</p>
+                        {/* Screen Content with Image Rotation */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900">
+                            <AnimatePresence mode="wait">
+                                {!showImage ? (
+                                    <motion.div
+                                        key="content"
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.9 }}
+                                        transition={{ duration: 0.5 }}
+                                        className="absolute inset-0 flex flex-col items-center justify-center text-white p-6"
+                                    >
+                                        <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-600 rounded-2xl mb-4 flex items-center justify-center shadow-lg">
+                                            <span className="text-3xl font-bold">ش</span>
+                                        </div>
+                                        <h3 className="text-2xl font-bold mb-2">شامل آب</h3>
+                                        <p className="text-slate-400 text-center text-sm">كل تطبيقاتك في مكان واحد</p>
 
-                            {/* Floating App Icons */}
-                            <motion.div
-                                animate={{ y: [0, -10, 0] }}
-                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                className="absolute top-20 -right-12 w-16 h-16 bg-pink-500 rounded-2xl flex items-center justify-center shadow-lg z-20"
-                            >
-                                <Sparkles className="text-white" />
-                            </motion.div>
+                                        {/* Floating App Icons */}
+                                        <motion.div
+                                            animate={{ y: [0, -10, 0] }}
+                                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                                            className="absolute top-20 -right-12 w-16 h-16 bg-pink-500 rounded-2xl flex items-center justify-center shadow-lg z-20"
+                                        >
+                                            <Sparkles className="text-white" />
+                                        </motion.div>
 
-                            <motion.div
-                                animate={{ y: [0, 10, 0] }}
-                                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                                className="absolute bottom-32 -left-8 w-14 h-14 bg-red-500 rounded-2xl flex items-center justify-center shadow-lg z-20"
-                            >
-                                <Play className="text-white fill-white" />
-                            </motion.div>
+                                        <motion.div
+                                            animate={{ y: [0, 10, 0] }}
+                                            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                                            className="absolute bottom-32 -left-8 w-14 h-14 bg-red-500 rounded-2xl flex items-center justify-center shadow-lg z-20"
+                                        >
+                                            <Play className="text-white fill-white" />
+                                        </motion.div>
+                                    </motion.div>
+                                ) : (
+                                    <motion.img
+                                        key="image"
+                                        src="/images/InPhone.png"
+                                        alt="تطبيق شامل"
+                                        initial={{ opacity: 0, scale: 1.1 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 1.1 }}
+                                        transition={{ duration: 0.5 }}
+                                        className="absolute inset-0 w-full h-full object-cover"
+                                    />
+                                )}
+                            </AnimatePresence>
                         </div>
 
                         {/* Notch */}
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-slate-900 rounded-b-2xl"></div>
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-slate-900 rounded-b-2xl z-30"></div>
                     </div>
 
                     {/* Decorative Circle Behind */}
