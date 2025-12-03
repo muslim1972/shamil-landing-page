@@ -12,7 +12,7 @@ const About = () => {
             <div className="container mx-auto px-4 relative z-10">
                 <div className="max-w-4xl mx-auto">
                     <div className="text-center mb-12">
-                        <span className="text-secondary-600 font-bold tracking-wider uppercase text-sm">رؤيتنا</span>
+                        <span className="text-secondary-600 font-bold tracking-wider uppercase text-lg">رؤيتنا</span>
                         <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mt-2">
                             لماذا تطبيق شامل؟
                         </h2>
@@ -25,9 +25,9 @@ const About = () => {
                         className="bg-white dark:bg-slate-900 rounded-[2rem] p-8 md:p-12 shadow-xl border border-slate-100 dark:border-slate-800 relative"
                         dir="rtl"
                     >
-                        <Quote className="absolute top-8 right-8 text-primary-100 dark:text-slate-800 w-16 h-16 -z-0 transform -scale-x-100" />
+                        <Quote className="absolute top-6 right-6 text-primary-200 dark:text-slate-700 w-12 h-12 -z-10 transform -scale-x-100 opacity-60" />
 
-                        <div className="relative z-10 space-y-6 text-lg text-slate-700 dark:text-slate-300 leading-loose">
+                        <div className="relative z-10 space-y-6 text-lg text-slate-700 dark:text-slate-300 leading-loose pr-6 md:pr-12">
                             <p>
                                 <span className="font-bold text-primary-600 text-xl">تطبيق (شامل آب) Shamil App :</span> هو تطبيق يجمع اغلب البرامج التي يحتاجها المستخدم في مكان واحد، ويهدف الى التحول من تبعية التطبيقات الأجنبية والخارجية التي اما لاتتوافق مع مجتمعاتنا وتقاليدها او انها تتسبب في تسريب معلوماتنا الشخصية وهدر خصوصيتنا والتي أيضا تتعارض مع ضوابط ديننا ومجتمعاتنا او على اقل تقدير تستنزف مقدراتنا الاقتصادية وتهدر مورد من موارد التمويل التي تجعل تدوير الإمكانات في بيئة واحدة ليعود النفع بشكل حلقي الى من انفق بطريقة حتمية اذا ما اعتمد نظام التكامل بين المنتج والمستهلك في بيئة واحدة.
                             </p>
@@ -39,12 +39,14 @@ const About = () => {
                             </p>
                         </div>
 
-                        <div className="mt-8 flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800">
+                            <div className="mt-8 flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800">
+           
                             <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-md">
                                 ش
                             </div>
                             <div>
-                                <h4 className="font-bold text-slate-900 dark:text-white">فريق تطوير شامل</h4>
+                                <h4 className="font-bold text-slate-900 dark:text-white text-xl md:text-2xl">فريق تطوير شامل</h4>
+                                <h3 className="font-bold text-slate-900 dark:text-white mt-1">المهندس مسلم عقيل</h3>
                                 <p className="text-sm text-slate-500">نحو مستقبل رقمي أفضل</p>
                             </div>
                         </div>

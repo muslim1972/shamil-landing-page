@@ -3,6 +3,15 @@ import { MessageCircle, Camera, PlayCircle, Gamepad2, BrainCircuit, Activity, Sh
 
 const features = [
     {
+        id: 'chat',
+        title: 'المحادثات الفورية',
+        description: 'تواصل سريع وآمن مع من تحب، مع ميزات متقدمة للخصوصية.',
+        icon: <MessageCircle className="w-8 h-8 text-indigo-500" />,
+        color: 'bg-indigo-50 dark:bg-indigo-900/20',
+        border: 'border-indigo-100 dark:border-indigo-800',
+        image: '/images/Wedget.jpeg'
+    },
+    {
         id: 'shagram',
         title: 'ShamaGram',
         description: 'شارك لحظاتك المميزة مع الأصدقاء والعائلة في بيئة آمنة وممتعة.',
@@ -17,14 +26,6 @@ const features = [
         icon: <PlayCircle className="w-8 h-8 text-red-500" />,
         color: 'bg-red-50 dark:bg-red-900/20',
         border: 'border-red-100 dark:border-red-800'
-    },
-    {
-        id: 'chat',
-        title: 'المحادثات الفورية',
-        description: 'تواصل سريع وآمن مع من تحب، مع ميزات متقدمة للخصوصية.',
-        icon: <MessageCircle className="w-8 h-8 text-indigo-500" />,
-        color: 'bg-indigo-50 dark:bg-indigo-900/20',
-        border: 'border-indigo-100 dark:border-indigo-800'
     },
     {
         id: 'games',
@@ -95,8 +96,17 @@ const Features = () => {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
                             whileHover={{ y: -10 }}
-                            className={`block p-8 rounded-3xl border ${feature.border} ${feature.color} hover:shadow-xl transition-all duration-300 group cursor-pointer`}
+                            className={`block p-8 rounded-3xl border ${feature.border} ${feature.color} hover:shadow-xl transition-all duration-300 group cursor-pointer ${feature.image ? 'flex flex-col' : ''}`}
                         >
+                            {feature.image && (
+                                <div className="mb-6 rounded-2xl overflow-hidden shadow-md h-48 w-full">
+                                    <img
+                                        src={feature.image}
+                                        alt={feature.title}
+                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                    />
+                                </div>
+                            )}
                             <div className="w-14 h-14 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
                                 {feature.icon}
                             </div>

@@ -56,6 +56,11 @@ export default {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' },
+        },
+        horizontalShake: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '25%': { transform: 'translateX(15px)' },
+          '75%': { transform: 'translateX(-15px)' },
         }
       }
     },

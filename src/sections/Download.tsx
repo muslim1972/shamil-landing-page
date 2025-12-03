@@ -18,7 +18,7 @@ const Download = () => {
                         dir="rtl"
                     >
                         <h2 className="text-4xl md:text-5xl font-black mb-6">
-                            حمل التطبيق الآن
+                            حمل التطبيق <span className="text-primary-200">الآن</span>
                             <br />
                             <span className="text-primary-200">واستمتع بالتجربة الكاملة</span>
                         </h2>

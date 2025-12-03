@@ -44,7 +44,7 @@ const FeatureDetails = () => {
             description: 'نظام دردشة فوري يضمن لك البقاء على اتصال دائم مع عائلتك وأصدقائك بخصوصية تامة.',
             features: [
                 { icon: <Send className="text-indigo-500" />, text: 'إرسال رسائل نصية وصوتية' },
-                { icon: <ImageIcon className="text-indigo-500" />, text: 'مشاركة الصور والملفات' },
+                { icon: <ImageIcon className="text-indigo-500" />, text: 'مشاركة الصور والملفات والفيديوهات' },
                 { icon: <Mic className="text-indigo-500" />, text: 'تسجيلات صوتية عالية الوضوح' },
             ],
             interfaceDescription: 'واجهة محادثة نظيفة وسريعة. فقاعات الرسائل ملونة لتمييز المرسل والمستقبل. إمكانية الرد السريع وتثبيت المحادثات المهمة.',
@@ -52,7 +52,8 @@ const FeatureDetails = () => {
             lightColor: 'bg-indigo-50 dark:bg-indigo-900/10',
             bgGradient: 'from-indigo-100 to-blue-100 dark:from-indigo-900/40 dark:to-blue-900/40',
             icon: <MessageCircle size={40} className="text-white" />,
-            videoPlaceholder: 'فيديو استعراض المحادثات'
+            videoPlaceholder: 'فيديو استعراض المحادثات',
+            widget: '/images/Wedget.jpeg'
         },
         {
             id: 'games',
@@ -174,6 +175,65 @@ const FeatureDetails = () => {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="flex-1 w-full relative z-10"
                         >
+                            {/* Gallery Section for Chat (only for chat feature) */}
+                            {item.id === 'chat' && (
+                                <div className="mb-12 space-y-8">
+                                    <div>
+                                        <h4 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 text-center">معرض المحادثات</h4>
+                                        <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                                            {[
+                                                { num: 2, label: 'واجهة المحادثات الرئيسية' },
+                                                { num: 3, label: 'واجهة المحادثة المفتوحة مع اسم الطرف الاخر وصورته' },
+                                                { num: 4, label: 'امكانية ارشفة المحادثات' },
+                                                { num: 5, label: 'محادثة حية مع الذكاء الصناعي' },
+                                                { num: 6, label: 'امكانية مشاركة الملفات والصور والفيديوهات والموقع' }
+                                            ].map((photo) => (
+                                                <motion.div
+                                                    key={`p${photo.num}`}
+                                                    whileHover={{ scale: 1.05 }}
+                                                    className="relative group flex flex-col"
+                                                >
+                                                    <div className="overflow-hidden rounded-xl shadow-lg mb-3">
+                                                        <img
+                                                            src={`/images/p${photo.num}.png`}
+                                                            alt={photo.label}
+                                                            className="w-full h-auto object-cover group-hover:brightness-110 transition-all"
+                                                        />
+                                                    </div>
+                                                    <p className="text-center text-sm font-medium text-slate-700 dark:text-slate-300 px-2">
+                                                        {photo.label}
+                                                    </p>
+                                                </motion.div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {item.widget && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 20 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true }}
+                                            className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700"
+                                        >
+                                            <h4 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center">واجهة التطبيق الكاملة</h4>
+                                            <motion.div
+                                                whileHover={{ scale: 1.02 }}
+                                                className="relative rounded-2xl overflow-hidden shadow-2xl max-w-2xl mx-auto"
+                                            >
+                                                <img
+                                                    src={item.widget}
+                                                    alt="واجهة تطبيق المحادثات"
+                                                    className="w-full h-auto object-cover"
+                                                />
+                                            </motion.div>
+                                            <p className="text-center text-slate-600 dark:text-slate-400 mt-4">
+                                                واجهة المحادثات كاملة مع جميع الأدوات والميزات المتقدمة
+                                            </p>
+                                        </motion.div>
+                                    )}
+                                </div>
+                            )}
+
                             <div className="relative group cursor-pointer">
                                 {/* Decorative Background Blob behind video */}
                                 <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-gradient-to-br ${item.color} opacity-30 blur-2xl rounded-full group-hover:opacity-40 transition-opacity duration-500`}></div>

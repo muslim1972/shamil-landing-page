@@ -93,7 +93,10 @@ const Hero = () => {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="relative order-1 lg:order-2 flex justify-center"
                 >
-                    <div className="relative w-[300px] h-[600px] bg-slate-900 rounded-[3rem] border-8 border-slate-900 shadow-2xl overflow-hidden animate-float">
+                    <motion.div 
+                        animate={{ x: [0, 40, -40, 0] }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                        className="relative w-[300px] h-[600px] bg-slate-900 rounded-[3rem] border-8 border-slate-900 shadow-2xl overflow-hidden">
                         {/* Screen Content with Image Rotation */}
                         <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900">
                             <AnimatePresence mode="wait">
@@ -106,8 +109,8 @@ const Hero = () => {
                                         transition={{ duration: 0.5 }}
                                         className="absolute inset-0 flex flex-col items-center justify-center text-white p-6"
                                     >
-                                        <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-600 rounded-2xl mb-4 flex items-center justify-center shadow-lg">
-                                            <span className="text-3xl font-bold">ش</span>
+                                        <div className="w-32 h-16 bg-gradient-to-br from-primary-500 to-secondary-600 rounded-2xl mb-4 flex items-center justify-center shadow-lg px-3">
+                                            <span className="text-lg md:text-3xl font-bold whitespace-nowrap text-center">Shamil App</span>
                                         </div>
                                         <h3 className="text-2xl font-bold mb-2">شامل آب</h3>
                                         <p className="text-slate-400 text-center text-sm">كل تطبيقاتك في مكان واحد</p>
@@ -146,7 +149,7 @@ const Hero = () => {
 
                         {/* Notch */}
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-slate-900 rounded-b-2xl z-30"></div>
-                    </div>
+                    </motion.div>
 
                     {/* Decorative Circle Behind */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-br from-primary-100 to-secondary-100 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-full -z-10 blur-2xl"></div>
