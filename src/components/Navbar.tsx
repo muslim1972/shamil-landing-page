@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Download } from 'lucide-react';
+import { Menu, X, Download, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 
@@ -31,15 +31,26 @@ const Navbar = () => {
             )}
         >
             <div className="container mx-auto px-4 flex items-center justify-between" dir="rtl">
-                {/* Logo */}
-                <a href="#" className="flex items-center gap-2 group">
-                    <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:shadow-primary-500/30 transition-all duration-300">
-                        ش
-                    </div>
-                    <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300">
-                        شامل آب
-                    </span>
-                </a>
+                {/* Logo and Back Button */}
+                <div className="flex items-center gap-4">
+                    <a href="#" className="flex items-center gap-2 group">
+                        <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:shadow-primary-500/30 transition-all duration-300">
+                            ش
+                        </div>
+                        <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300">
+                            شامل آب
+                        </span>
+                    </a>
+
+                    {/* Back to App Button */}
+                    <a
+                        href="/"
+                        className="hidden md:flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+                    >
+                        <ArrowRight size={18} />
+                        <span>العودة للتطبيق</span>
+                    </a>
+                </div>
 
                 {/* Desktop Navigation */}
                 <div className="hidden md:flex items-center gap-8">
@@ -85,6 +96,15 @@ const Navbar = () => {
                         className="md:hidden bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 overflow-hidden"
                     >
                         <div className="container mx-auto px-4 py-4 flex flex-col gap-4" dir="rtl">
+                            {/* Back to App Button - Mobile */}
+                            <a
+                                href="/"
+                                className="flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white px-5 py-3 rounded-xl font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                            >
+                                <ArrowRight size={18} />
+                                <span>العودة للتطبيق</span>
+                            </a>
+
                             {navLinks.map((link) => (
                                 <a
                                     key={link.name}
