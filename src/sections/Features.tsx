@@ -9,7 +9,7 @@ const features = [
         icon: <MessageCircle className="w-8 h-8 text-indigo-500" />,
         color: 'bg-indigo-50 dark:bg-indigo-900/20',
         border: 'border-indigo-100 dark:border-indigo-800',
-        image: '/shamil-landing-page/images/Wedget.jpeg'
+        image: 'images/Wedget.jpeg'
     },
     {
         id: 'shagram',
