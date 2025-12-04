@@ -3,12 +3,24 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/shamil-landing-page/',  // أضف هذا السطر
+  base: '/shamil-landing-page/',
   plugins: [react()],
   build: {
-    outDir: 'docs',  // أضف هذا
-    assetsDir: 'assets',  // أضف هذا
-    copyPublicDir: true  // أضف هذا
+    outDir: 'docs',
+    assetsDir: 'assets',
+    copyPublicDir: true,
+    rollupOptions: {
+      output: {
+        assetFileNames: 'assets/[name]-[hash][extname]',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js'
+      }
+    }
   },
-  publicDir: 'public'  // أضف هذا
+  publicDir: 'public',
+  resolve: {
+    alias: {
+      '@': '/src'
+    }
+  }
 })
