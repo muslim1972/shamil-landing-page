@@ -137,7 +137,7 @@ const Hero = () => {
                                 ) : (
                                     <motion.img
                                         key="image"
-                                        src="/images/InPhone.png"
+                                        src="images/InPhone.png"
                                         alt="تطبيق شامل"
                                         initial={{ opacity: 0, scale: 1.1 }}
                                         animate={{ opacity: 1, scale: 1 }}

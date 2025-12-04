@@ -14,7 +14,7 @@ const Showcase = () => {
                     {/* Image Container */}
                     <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white dark:border-slate-700">
                         <img
-                            src="/images/p1.jpg"
+                            src="images/p1.jpg"
                             alt="تطبيق شامل - عرض توضيحي"
                             className="w-full h-auto object-cover"
                         />
