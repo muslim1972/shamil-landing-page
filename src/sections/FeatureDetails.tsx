@@ -195,7 +195,7 @@ const FeatureDetails = () => {
                                                 >
                                                     <div className="overflow-hidden rounded-xl shadow-lg mb-3">
                                                         <img
-                                                            src={'\images/p${photo.num}.png'}
+                                                            src={`/images/p${photo.num}.png`}
                                                             alt={photo.label}
                                                             className="w-full h-auto object-cover group-hover:brightness-110 transition-all"
                                                         />
