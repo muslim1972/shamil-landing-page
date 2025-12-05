@@ -2,16 +2,39 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Download, Play, ChevronDown, Sparkles } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
+const images = [
+    '/images/InPhone.png',
+    '/images/p2.png',
+    '/images/p3.png',
+    '/images/p4.png',
+    '/images/p5.png',
+    '/images/p6.png'
+];
+
 const Hero = () => {
-    const [showImage, setShowImage] = useState(false);
+    // 0 = Intro Screen
+    // 1..N = Images (index - 1)
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setShowImage(prev => !prev);
+            setCurrentIndex(prev => {
+                // Total states: 1 (intro) + images.length
+                const totalStates = 1 + images.length;
+                return (prev + 1) % totalStates;
+            });
         }, 4000);
 
         return () => clearInterval(interval);
     }, []);
+
+    const showIntro = currentIndex === 0;
+    const currentImage = currentIndex > 0 ? images[currentIndex - 1] : null;
+
+    // Base URL support for production build
+    const getImageUrl = (path: string) => {
+        return `${import.meta.env.BASE_URL}${path.startsWith('/') ? path.slice(1) : path}`;
+    };
 
     return (
         <section id="hero" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
@@ -95,14 +118,14 @@ const Hero = () => {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="relative order-1 lg:order-2 flex justify-center"
                 >
-                    <motion.div 
+                    <motion.div
                         animate={{ x: [0, 40, -40, 0] }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                         className="relative w-[300px] h-[600px] bg-slate-900 rounded-[3rem] border-8 border-slate-900 shadow-2xl overflow-hidden">
                         {/* Screen Content with Image Rotation */}
                         <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900">
                             <AnimatePresence mode="wait">
-                                {!showImage ? (
+                                {showIntro ? (
                                     <motion.div
                                         key="content"
                                         initial={{ opacity: 0, scale: 0.9 }}
@@ -136,14 +159,14 @@ const Hero = () => {
                                     </motion.div>
                                 ) : (
                                     <motion.img
-                                        key="image"
-                                        src={`${import.meta.env.BASE_URL}images/InPhone.png`}
+                                        key={`image-${currentIndex}`}
+                                        src={getImageUrl(currentImage || "")}
                                         alt="تطبيق شامل"
                                         initial={{ opacity: 0, scale: 1.1 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         exit={{ opacity: 0, scale: 1.1 }}
                                         transition={{ duration: 0.5 }}
-                                        className="absolute inset-0 w-full h-full object-cover"
+                                        className="absolute inset-0 w-full h-full object-fill"
                                     />
                                 )}
                             </AnimatePresence>
