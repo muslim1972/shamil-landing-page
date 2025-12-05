@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Download, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const navRef = useRef<HTMLElement | null>(null);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -13,6 +14,18 @@ const Navbar = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    // Close mobile menu when clicking outside
+    useEffect(() => {
+        const handleOutside = (e: MouseEvent) => {
+            if (!isMobileMenuOpen) return;
+            if (navRef.current && !navRef.current.contains(e.target as Node)) {
+                setIsMobileMenuOpen(false);
+            }
+        };
+        if (isMobileMenuOpen) document.addEventListener('mousedown', handleOutside);
+        return () => document.removeEventListener('mousedown', handleOutside);
+    }, [isMobileMenuOpen]);
 
     const navLinks = [
         { name: 'الرئيسية', href: '#hero' },
@@ -51,6 +64,7 @@ const Navbar = () => {
 
     return (
         <nav
+            ref={navRef}
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
                     ? 'bg-white/95 backdrop-blur-lg shadow-md py-3'
                     : 'bg-white/80 backdrop-blur-md py-5'
