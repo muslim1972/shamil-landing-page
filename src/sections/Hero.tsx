@@ -31,11 +31,6 @@ const Hero = () => {
     const showIntro = currentIndex === 0;
     const currentImage = currentIndex > 0 ? images[currentIndex - 1] : null;
 
-    // Base URL support for production build
-    const getImageUrl = (path: string) => {
-        return `${import.meta.env.BASE_URL}${path.startsWith('/') ? path.slice(1) : path}`;
-    };
-
     return (
         <section id="hero" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
             {/* Background Elements */}
@@ -160,7 +155,7 @@ const Hero = () => {
                                 ) : (
                                     <motion.img
                                         key={`image-${currentIndex}`}
-                                        src={getImageUrl(currentImage || "")}
+                                        src={currentImage || ""}
                                         alt="تطبيق شامل"
                                         initial={{ opacity: 0, scale: 1.1 }}
                                         animate={{ opacity: 1, scale: 1 }}
