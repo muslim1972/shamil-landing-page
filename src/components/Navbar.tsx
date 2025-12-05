@@ -50,6 +50,13 @@ const Navbar = () => {
                 behavior: 'smooth',
                 block: 'start'
             });
+            
+            // تحديث حالة الـ navbar بعد انتهاء التمرير السلس (حوالي 1 ثانية)
+            // هذا يضمن أن الـ navbar يبقى ثابتاً خلال التمرير
+            setTimeout(() => {
+                const currentScroll = window.scrollY;
+                setIsScrolled(currentScroll > 20);
+            }, 1000);
         }
     };
 
