@@ -53,7 +53,7 @@ const FeatureDetails = () => {
             bgGradient: 'from-indigo-100 to-blue-100 dark:from-indigo-900/40 dark:to-blue-900/40',
             icon: <MessageCircle size={40} className="text-white" />,
             videoPlaceholder: 'فيديو استعراض المحادثات',
-            widget: 'images/Wedget.jpeg'
+            widget: '/images/Wedget.jpeg'
         },
         {
             id: 'games',
@@ -195,7 +195,7 @@ const FeatureDetails = () => {
                                                 >
                                                     <div className="overflow-hidden rounded-xl shadow-lg mb-3">
                                                         <img
-                                                            src={`/images/p${photo.num}.png`}
+                                                            src={`${import.meta.env.BASE_URL}images/p${photo.num}.png`}
                                                             alt={photo.label}
                                                             className="w-full h-auto object-cover group-hover:brightness-110 transition-all"
                                                         />
@@ -221,7 +221,7 @@ const FeatureDetails = () => {
                                                 className="relative rounded-2xl overflow-hidden shadow-2xl max-w-2xl mx-auto"
                                             >
                                                 <img
-                                                    src={item.widget?.replace('/', '')}
+                                                    src={`${import.meta.env.BASE_URL}${item.widget.replace(/^\//, '')}`}
                                                     alt="واجهة تطبيق المحادثات"
                                                     className="w-full h-auto object-cover"
                                                 />

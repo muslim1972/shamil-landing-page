@@ -9,7 +9,7 @@ const features = [
         icon: <MessageCircle className="w-8 h-8 text-indigo-500" />,
         color: 'bg-indigo-50 dark:bg-indigo-900/20',
         border: 'border-indigo-100 dark:border-indigo-800',
-        image: 'images/Wedget.jpeg'
+        image: '/images/Wedget.jpeg'
     },
     {
         id: 'shagram',
@@ -100,12 +100,12 @@ const Features = () => {
                         >
                             {feature.image && (
                                 <div className="mb-6 rounded-2xl overflow-hidden shadow-md h-48 w-full">
-                                    <img
-                                        src={feature.image}
-                                        alt={feature.title}
-                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                                    />
-                                </div>
+                                        <img
+                                            src={`${import.meta.env.BASE_URL}${feature.image?.replace(/^\//, '')}`}
+                                            alt={feature.title}
+                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                        />
+                                    </div>
                             )}
                             <div className="w-14 h-14 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
                                 {feature.icon}
