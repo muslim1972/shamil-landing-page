@@ -2,13 +2,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Download, Play, ChevronDown, Sparkles } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
+// Use relative paths, we will prepend BASE_URL
 const images = [
-    '/images/InPhone.png',
-    '/images/p2.png',
-    '/images/p3.png',
-    '/images/p4.png',
-    '/images/p5.png',
-    '/images/p6.png'
+    'images/InPhone.png',
+    'images/p2.png',
+    'images/p3.png',
+    'images/p4.png',
+    'images/p5.png',
+    'images/p6.png'
 ];
 
 const Hero = () => {
@@ -30,6 +31,12 @@ const Hero = () => {
 
     const showIntro = currentIndex === 0;
     const currentImage = currentIndex > 0 ? images[currentIndex - 1] : null;
+
+    // Helper to handle base URL (e.g. /shamil-landing-page/)
+    const getImageUrl = (path: string) => {
+        // import.meta.env.BASE_URL generally ends with /
+        return `${import.meta.env.BASE_URL}${path}`;
+    };
 
     return (
         <section id="hero" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
@@ -155,7 +162,7 @@ const Hero = () => {
                                 ) : (
                                     <motion.img
                                         key={`image-${currentIndex}`}
-                                        src={currentImage || ""}
+                                        src={getImageUrl(currentImage || "")}
                                         alt="تطبيق شامل"
                                         initial={{ opacity: 0, scale: 1.1 }}
                                         animate={{ opacity: 1, scale: 1 }}
