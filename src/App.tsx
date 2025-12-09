@@ -6,6 +6,8 @@ import Showcase from './sections/Showcase';
 import Features from './sections/Features';
 import FeatureDetails from './sections/FeatureDetails';
 import About from './sections/About';
+import PrivacyPolicy from './sections/PrivacyPolicy';
+import TermsOfService from './sections/TermsOfService';
 import Download from './sections/Download';
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
         <Features />
         <FeatureDetails />
         <About />
+        <PrivacyPolicy />
+        <TermsOfService />
         <Download />
       </main>
       <Footer />

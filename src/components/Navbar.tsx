@@ -31,6 +31,8 @@ const Navbar = () => {
         { name: 'الرئيسية', href: '#hero' },
         { name: 'المميزات', href: '#features' },
         { name: 'عن التطبيق', href: '#about' },
+        { name: 'سياسة الخصوصية', href: '#privacy-policy' },
+        { name: 'شروط الخدمة', href: '#terms-of-service' },
     ];
 
     const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -50,7 +52,7 @@ const Navbar = () => {
                 behavior: 'smooth',
                 block: 'start'
             });
-            
+
             // تحديث حالة الـ navbar بعد انتهاء التمرير السلس (حوالي 1 ثانية)
             // هذا يضمن أن الـ navbar يبقى ثابتاً خلال التمرير
             setTimeout(() => {
@@ -73,8 +75,8 @@ const Navbar = () => {
         <nav
             ref={navRef}
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                    ? 'bg-white/95 backdrop-blur-lg shadow-md py-3'
-                    : 'bg-white/80 backdrop-blur-md py-5'
+                ? 'bg-white/95 backdrop-blur-lg shadow-md py-3'
+                : 'bg-white/80 backdrop-blur-md py-5'
                 }`}
         >
             <div className="container mx-auto px-4 flex items-center justify-between" dir="rtl">
