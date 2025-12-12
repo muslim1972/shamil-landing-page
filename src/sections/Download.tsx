@@ -55,7 +55,7 @@ const Download = () => {
                         <motion.a
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            href="/src/apk/app-debug.apk"
+                            href={`${import.meta.env.BASE_URL}apk/app-debug.apk`}
                             download="ShamilApp.apk"
                             className="inline-flex items-center gap-3 bg-gradient-to-r from-primary-600 to-secondary-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold text-lg md:text-xl shadow-xl shadow-primary-500/25 hover:shadow-2xl hover:shadow-primary-500/40 transition-all"
                         >
