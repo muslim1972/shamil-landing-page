@@ -18,7 +18,8 @@ const FeatureDetails = () => {
             lightColor: 'bg-pink-50 dark:bg-pink-900/10',
             bgGradient: 'from-pink-100 to-rose-100 dark:from-pink-900/40 dark:to-rose-900/40',
             icon: <Camera size={40} className="text-white" />,
-            videoPlaceholder: 'فيديو استعراض ShamaGram'
+            videoPlaceholder: 'فيديو استعراض ShamaGram',
+            videoSrc: '/videos/shagram.mp4'
         },
         {
             id: 'shamatube',
@@ -53,7 +54,8 @@ const FeatureDetails = () => {
             bgGradient: 'from-indigo-100 to-blue-100 dark:from-indigo-900/40 dark:to-blue-900/40',
             icon: <MessageCircle size={40} className="text-white" />,
             videoPlaceholder: 'فيديو استعراض المحادثات',
-            widget: '/images/Wedget.jpeg'
+            widget: '/images/Wedget.jpeg',
+            videoSrc: '/videos/conversations.mp4'
         },
         {
             id: 'games',
@@ -104,7 +106,8 @@ const FeatureDetails = () => {
             lightColor: 'bg-cyan-50 dark:bg-cyan-900/10',
             bgGradient: 'from-cyan-100 to-teal-100 dark:from-cyan-900/40 dark:to-teal-900/40',
             icon: <Activity size={40} className="text-white" />,
-            videoPlaceholder: 'فيديو استعراض الصحة'
+            videoPlaceholder: 'فيديو استعراض الصحة',
+            videoSrc: '/videos/DeviceHealth.mp4'
         }
     ];
 
@@ -239,20 +242,37 @@ const FeatureDetails = () => {
                                 <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-gradient-to-br ${item.color} opacity-30 blur-2xl rounded-full group-hover:opacity-40 transition-opacity duration-500`}></div>
 
                                 {/* Video Container */}
-                                <div className="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white/80 dark:border-slate-800/80 aspect-video bg-slate-900 transform transition-transform duration-500 hover:scale-[1.02]">
-                                    {/* Placeholder Content */}
-                                    <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-8 text-center bg-black/40 hover:bg-black/30 transition-colors">
-                                        <div className={`w-20 h-20 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg border border-white/30`}>
-                                            <PlayCircle size={40} className="text-white fill-white" />
+                                <div className={`relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white/80 dark:border-slate-800/80 bg-slate-900 transform transition-transform duration-500 hover:scale-[1.02] ${['chat', 'shagram', 'health'].includes(item.id) ? 'aspect-[9/19] max-w-[250px] mx-auto' : 'aspect-video'}`}>
+                                    {/* Video Player or Placeholder */}
+                                    {item.videoSrc ? (
+                                        <video
+                                            className="w-full h-full object-cover"
+                                            autoPlay
+                                            loop
+                                            muted
+                                            playsInline
+                                            controls
+                                            src={`${import.meta.env.BASE_URL}${item.videoSrc.replace(/^\//, '')}`}
+                                        >
+                                            <source src={`${import.meta.env.BASE_URL}${item.videoSrc.replace(/^\//, '')}`} type="video/mp4" />
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    ) : (
+                                        <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-8 text-center bg-black/40 hover:bg-black/30 transition-colors">
+                                            <div className={`w-20 h-20 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg border border-white/30`}>
+                                                <PlayCircle size={40} className="text-white fill-white" />
+                                            </div>
+                                            <span className="font-bold text-lg drop-shadow-md">{item.videoPlaceholder}</span>
+                                            <p className="text-sm text-slate-200 mt-2 drop-shadow-md">اضغط للمشاهدة</p>
                                         </div>
-                                        <span className="font-bold text-lg drop-shadow-md">{item.videoPlaceholder}</span>
-                                        <p className="text-sm text-slate-200 mt-2 drop-shadow-md">اضغط للمشاهدة</p>
-                                    </div>
+                                    )}
 
-                                    {/* Simulated UI Elements for "Realism" */}
-                                    <div className="absolute bottom-4 left-4 right-4 h-1.5 bg-white/20 rounded-full overflow-hidden">
-                                        <div className={`h-full w-1/3 bg-gradient-to-r ${item.color}`}></div>
-                                    </div>
+                                    {/* Simulated UI Elements for "Realism" - Only show if not playing video or if video is just background ?? Actually let's hide it if video is real or keep it as overlay? Keep it for aesthetics unless controls interfere. */}
+                                    {!item.videoSrc && (
+                                        <div className="absolute bottom-4 left-4 right-4 h-1.5 bg-white/20 rounded-full overflow-hidden">
+                                            <div className={`h-full w-1/3 bg-gradient-to-r ${item.color}`}></div>
+                                        </div>
+                                    )}
                                 </div>
 
                                 {/* Floating Badge */}

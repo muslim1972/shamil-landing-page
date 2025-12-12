@@ -76,43 +76,57 @@ const Hero = () => {
                         تجربة مستخدم فريدة مصممة خصيصاً لتناسب احتياجاتك اليومية.
                     </p>
 
-                    <div className="flex flex-wrap gap-2 md:gap-4 justify-end">
-                        <motion.a
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            href="#features"
-                            className="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 text-sm md:text-base rounded-2xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-slate-700 shadow-lg hover:shadow-xl transition-all"
-                        >
-                            <Play size={16} className="fill-current md:w-5 md:h-5" />
-                            <span className="hidden sm:inline">شاهد الفيديو</span>
-                            <span className="sm:hidden">فيديو</span>
-                        </motion.a>
+                    <div className="flex flex-row flex-wrap items-center justify-end gap-x-6 gap-y-4 w-full">
+                        {/* Stats */}
+                        <div className="flex items-center gap-4 text-slate-500 dark:text-slate-400 order-2 sm:order-1">
+                            <div className="flex items-center gap-1.5">
+                                <span className="font-bold text-slate-900 dark:text-white text-sm">+100K</span>
+                                <span className="text-[10px] sm:text-xs">تحميل</span>
+                            </div>
+                            <div className="w-px h-6 bg-slate-200 dark:bg-slate-700"></div>
+                            <div className="flex items-center gap-1.5">
+                                <span className="font-bold text-slate-900 dark:text-white text-sm">4.8</span>
+                                <span className="text-[10px] sm:text-xs">تقييم</span>
+                            </div>
+                        </div>
 
+                        {/* Download Button */}
                         <motion.a
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             href={`${import.meta.env.BASE_URL}apk/app-debug.apk`}
                             download="ShamilApp.apk"
                             style={{ backgroundColor: '#0284c7', color: '#ffffff' }}
-                            className="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 text-sm md:text-base rounded-2xl font-bold shadow-lg shadow-primary-500/25 transition-all hover:opacity-90"
+                            className="flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold shadow-lg shadow-primary-500/25 transition-all hover:opacity-90 order-1 sm:order-2 text-sm sm:text-base"
                         >
-                            <Download size={16} className="md:w-5 md:h-5" style={{ color: '#ffffff' }} />
+                            <Download size={18} className="" style={{ color: '#ffffff' }} />
                             <span className="hidden sm:inline" style={{ color: '#ffffff' }}>حمل التطبيق</span>
                             <span className="sm:hidden" style={{ color: '#ffffff' }}>تحميل</span>
                         </motion.a>
                     </div>
 
-                    <div className="mt-12 flex items-center justify-end gap-6 text-slate-500 dark:text-slate-400">
-                        <div className="flex items-center gap-2">
-                            <span className="font-bold text-slate-900 dark:text-white">+100K</span>
-                            <span className="text-sm">تحميل</span>
-                        </div>
-                        <div className="w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
-                        <div className="flex items-center gap-2">
-                            <span className="font-bold text-slate-900 dark:text-white">4.8</span>
-                            <span className="text-sm">تقييم</span>
-                        </div>
-                    </div>
+                    {/* Dashboard Video Container */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4 }}
+                        className="relative w-full max-w-[300px] mx-auto sm:mx-0 sm:self-end mt-6 rounded-[2rem] overflow-hidden shadow-2xl shadow-slate-400/20 dark:shadow-slate-900/40 border-4 border-white/80 dark:border-slate-800/80 bg-slate-900"
+                    >
+                        <video
+                            className="w-full h-auto"
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            controls
+                            src={`${import.meta.env.BASE_URL}videos/dashboard.mp4`}
+                        >
+                            <source src={`${import.meta.env.BASE_URL}videos/dashboard.mp4`} type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                    </motion.div>
+
+
                 </motion.div>
 
                 {/* Visual Content (Phone Mockup) */}
