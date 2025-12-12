@@ -2,6 +2,28 @@ import { motion } from 'framer-motion';
 import { Download as DownloadIcon, Smartphone, CheckCircle2 } from 'lucide-react';
 
 const Download = () => {
+    const handleDownload = (e: React.MouseEvent) => {
+        e.preventDefault();
+
+        const downloadUrl = `${window.location.origin}/shamil-landing-page/apk/app-debug.apk`;
+
+        // التحقق إذا كانت الصفحة داخل iframe
+        if (window.parent !== window) {
+            // إرسال رسالة للتطبيق الأم
+            window.parent.postMessage({
+                type: 'DOWNLOAD_APK',
+                url: downloadUrl,
+                filename: 'ShamilApp.apk'
+            }, '*');
+        } else {
+            // المتصفح العادي - تحميل مباشر
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = 'ShamilApp.apk';
+            link.click();
+        }
+    };
+
     return (
         <section id="download" className="py-16 md:py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
             {/* Background Patterns */}
@@ -52,16 +74,15 @@ const Download = () => {
                             ))}
                         </ul>
 
-                        <motion.a
+                        <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            href={`${import.meta.env.BASE_URL}apk/app-debug.apk`}
-                            download="ShamilApp.apk"
-                            className="inline-flex items-center gap-3 bg-gradient-to-r from-primary-600 to-secondary-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold text-lg md:text-xl shadow-xl shadow-primary-500/25 hover:shadow-2xl hover:shadow-primary-500/40 transition-all"
+                            onClick={handleDownload}
+                            className="inline-flex items-center gap-3 bg-gradient-to-r from-primary-600 to-secondary-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold text-lg md:text-xl shadow-xl shadow-primary-500/25 hover:shadow-2xl hover:shadow-primary-500/40 transition-all cursor-pointer"
                         >
                             <DownloadIcon size={24} />
                             <span>تحميل التطبيق</span>
-                        </motion.a>
+                        </motion.button>
 
                         <p className="mt-3 md:mt-4 text-xs md:text-sm text-slate-400">
                             الإصدار: 1.1.0 | الحجم: 30MB | التحديث: 2025

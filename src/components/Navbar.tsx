@@ -71,6 +71,28 @@ const Navbar = () => {
         }
     };
 
+    const handleDownload = (e: React.MouseEvent) => {
+        e.preventDefault();
+
+        const downloadUrl = `${window.location.origin}/shamil-landing-page/apk/app-debug.apk`;
+
+        // التحقق إذا كانت الصفحة داخل iframe
+        if (window.parent !== window) {
+            // إرسال رسالة للتطبيق الأم
+            window.parent.postMessage({
+                type: 'DOWNLOAD_APK',
+                url: downloadUrl,
+                filename: 'ShamilApp.apk'
+            }, '*');
+        } else {
+            // المتصفح العادي - تحميل مباشر
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = 'ShamilApp.apk';
+            link.click();
+        }
+    };
+
     return (
         <nav
             ref={navRef}
@@ -118,14 +140,13 @@ const Navbar = () => {
 
                 {/* CTA Button - Desktop */}
                 <div className="hidden md:block">
-                    <a
-                        href={`${import.meta.env.BASE_URL}apk/app-debug.apk`}
-                        download="ShamilApp.apk"
+                    <button
+                        onClick={handleDownload}
                         className="flex items-center gap-2 bg-gradient-to-r from-slate-900 to-slate-800 text-white px-6 py-3 rounded-full font-bold hover:from-slate-800 hover:to-slate-700 transition-all shadow-lg hover:shadow-xl active:scale-95 cursor-pointer"
                     >
                         <Download size={18} />
                         <span>تحميل التطبيق</span>
-                    </a>
+                    </button>
                 </div>
 
                 {/* Mobile Menu Button */}
@@ -162,14 +183,13 @@ const Navbar = () => {
                             ))}
 
                             {/* Download Button - Mobile */}
-                            <a
-                                href={`${import.meta.env.BASE_URL}apk/app-debug.apk`}
-                                download="ShamilApp.apk"
+                            <button
+                                onClick={handleDownload}
                                 className="flex items-center justify-center gap-2 bg-gradient-to-r from-teal-600 to-cyan-600 text-white px-6 py-4 rounded-xl font-bold shadow-lg shadow-teal-500/30 hover:shadow-teal-500/50 active:scale-95 transition-all cursor-pointer mt-2"
                             >
                                 <Download size={20} />
                                 <span className="text-lg">تحميل التطبيق</span>
-                            </a>
+                            </button>
 
                             {/* Back to App Button - Mobile */}
                             <button

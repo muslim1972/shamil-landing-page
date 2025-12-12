@@ -38,6 +38,28 @@ const Hero = () => {
         return `${import.meta.env.BASE_URL}${path}`;
     };
 
+    const handleDownload = (e: React.MouseEvent) => {
+        e.preventDefault();
+
+        const downloadUrl = `${window.location.origin}/shamil-landing-page/apk/app-debug.apk`;
+
+        // التحقق إذا كانت الصفحة داخل iframe
+        if (window.parent !== window) {
+            // إرسال رسالة للتطبيق الأم
+            window.parent.postMessage({
+                type: 'DOWNLOAD_APK',
+                url: downloadUrl,
+                filename: 'ShamilApp.apk'
+            }, '*');
+        } else {
+            // المتصفح العادي - تحميل مباشر
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = 'ShamilApp.apk';
+            link.click();
+        }
+    };
+
     return (
         <section id="hero" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
             {/* Background Elements */}
@@ -91,18 +113,17 @@ const Hero = () => {
                         </div>
 
                         {/* Download Button */}
-                        <motion.a
+                        <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            href={`${import.meta.env.BASE_URL}apk/app-debug.apk`}
-                            download="ShamilApp.apk"
+                            onClick={handleDownload}
                             style={{ backgroundColor: '#0284c7', color: '#ffffff' }}
-                            className="flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold shadow-lg shadow-primary-500/25 transition-all hover:opacity-90 order-1 sm:order-2 text-sm sm:text-base"
+                            className="flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold shadow-lg shadow-primary-500/25 transition-all hover:opacity-90 order-1 sm:order-2 text-sm sm:text-base cursor-pointer"
                         >
                             <Download size={18} className="" style={{ color: '#ffffff' }} />
                             <span className="hidden sm:inline" style={{ color: '#ffffff' }}>حمل التطبيق</span>
                             <span className="sm:hidden" style={{ color: '#ffffff' }}>تحميل</span>
-                        </motion.a>
+                        </motion.button>
                     </div>
 
                     {/* Dashboard Video Container */}
