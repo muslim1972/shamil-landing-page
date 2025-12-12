@@ -91,12 +91,14 @@ const Hero = () => {
                         <motion.a
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            href="#download"
-                            className="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 text-sm md:text-base rounded-2xl bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-bold shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 transition-all"
+                            href={`${import.meta.env.BASE_URL}apk/app-debug.apk`}
+                            download="ShamilApp.apk"
+                            style={{ backgroundColor: '#0284c7', color: '#ffffff' }}
+                            className="flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 text-sm md:text-base rounded-2xl font-bold shadow-lg shadow-primary-500/25 transition-all hover:opacity-90"
                         >
-                            <Download size={16} className="md:w-5 md:h-5" />
-                            <span className="hidden sm:inline">حمل التطبيق</span>
-                            <span className="sm:hidden">تحميل</span>
+                            <Download size={16} className="md:w-5 md:h-5" style={{ color: '#ffffff' }} />
+                            <span className="hidden sm:inline" style={{ color: '#ffffff' }}>حمل التطبيق</span>
+                            <span className="sm:hidden" style={{ color: '#ffffff' }}>تحميل</span>
                         </motion.a>
                     </div>
 

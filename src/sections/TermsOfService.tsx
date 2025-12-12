@@ -62,7 +62,7 @@ const TermsOfService = () => {
                 </div>
 
                 {/* Grid pattern */}
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_40%,transparent_100%)]"></div>
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] mask-radial-faded"></div>
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -130,8 +130,8 @@ const TermsOfService = () => {
                                                 <div
                                                     key={subIndex}
                                                     className={`relative bg-white/5 rounded-2xl p-6 border-r-4 ${sub.isWarning
-                                                            ? 'border-red-500 bg-red-500/5'
-                                                            : `border-${section.gradient.split('-')[1]}-500`
+                                                        ? 'border-red-500 bg-red-500/5'
+                                                        : `border-${section.gradient.split('-')[1]}-500`
                                                         } hover:bg-white/10 transition-all duration-500`}
                                                 >
                                                     <h4 className="text-xl font-bold text-white mb-3 flex items-center gap-3">
@@ -194,12 +194,13 @@ const TermsOfService = () => {
           animation: float 4s ease-in-out infinite;
         }
 
-        .delay-1000 {
-          animation-delay: 1s;
-        }
-
         .delay-2000 {
           animation-delay: 2s;
+        }
+
+        .mask-radial-faded {
+          mask-image: radial-gradient(ellipse 80% 50% at 50% 50%, #000 40%, transparent 100%);
+          -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 50%, #000 40%, transparent 100%);
         }
       `}</style>
         </section>
