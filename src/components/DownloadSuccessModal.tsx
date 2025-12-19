@@ -22,19 +22,15 @@ const DownloadSuccessModal = ({ isOpen, onClose, apkPath }: DownloadSuccessModal
     }, [isOpen]);
 
     const handleInstallNow = () => {
-        // محاولة فتح ملف APK مباشرة (يعمل على Android فقط)
-        const link = document.createElement('a');
-        link.href = apkPath;
-        link.target = '_blank';
-        link.click();
-
-        // إرسال رسالة للتطبيق الرئيسي إذا كان في iframe
+        // إرسال رسالة للتطبيق الرئيسي إذا كان في iframe (داخل التطبيق)
         if (window.parent !== window) {
             window.parent.postMessage({
                 type: 'INSTALL_APK',
                 path: apkPath
             }, '*');
         }
+        // في المتصفح العادي - لا نستطيع فتح المثبت (قيد أمني)
+        // المستخدم يحتاج لفتح الملف يدوياً من مجلد التنزيلات
     };
 
     return (

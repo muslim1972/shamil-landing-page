@@ -82,21 +82,21 @@ const Navbar = () => {
 
         const downloadUrl = `${window.location.origin}/shamil-landing-page/apk/app-debug.apk`;
 
-        // بدء التحميل
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.download = 'ShamilApp.apk';
-        link.click();
-
-        // إرسال رسالة للتطبيق الأم إذا كنا في iframe
+        // التحقق إذا كنا في iframe
         if (window.parent !== window) {
+            // داخل التطبيق - إرسال رسالة للتطبيق الأم
             window.parent.postMessage({
                 type: 'DOWNLOAD_APK',
                 url: downloadUrl,
                 filename: 'ShamilApp.apk'
             }, '*');
         } else {
-            // عرض المودال فقط في المتصفح (ليس في iframe)
+            // في المتصفح - بدء التحميل وعرض المودال
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = 'ShamilApp.apk';
+            link.click();
+
             setDownloadedApkPath(downloadUrl);
             setShowModal(true);
         }
