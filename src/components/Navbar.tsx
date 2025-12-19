@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Download, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import DownloadSuccessModal from './DownloadSuccessModal';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [downloadedApkPath, setDownloadedApkPath] = useState('');
     const navRef = useRef<HTMLElement | null>(null);
 
     useEffect(() => {
@@ -90,6 +93,10 @@ const Navbar = () => {
             link.href = downloadUrl;
             link.download = 'ShamilApp.apk';
             link.click();
+
+            // عرض المودال بعد بدء التحميل
+            setDownloadedApkPath(downloadUrl);
+            setShowModal(true);
         }
     };
 
@@ -203,6 +210,13 @@ const Navbar = () => {
                     </motion.div>
                 )}
             </AnimatePresence>
+
+            {/* Modal نجاح التحميل */}
+            <DownloadSuccessModal
+                isOpen={showModal}
+                onClose={() => setShowModal(false)}
+                apkPath={downloadedApkPath}
+            />
         </nav>
     );
 };

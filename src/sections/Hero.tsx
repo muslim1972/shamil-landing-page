@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download, Play, ChevronDown, Sparkles } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import DownloadSuccessModal from '../components/DownloadSuccessModal';
 
 // Use relative paths, we will prepend BASE_URL
 const images = [
@@ -16,6 +17,8 @@ const Hero = () => {
     // 0 = Intro Screen
     // 1..N = Images (index - 1)
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [showModal, setShowModal] = useState(false);
+    const [downloadedApkPath, setDownloadedApkPath] = useState('');
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -57,6 +60,10 @@ const Hero = () => {
             link.href = downloadUrl;
             link.download = 'ShamilApp.apk';
             link.click();
+
+            // عرض المودال بعد بدء التحميل
+            setDownloadedApkPath(downloadUrl);
+            setShowModal(true);
         }
     };
 
@@ -229,6 +236,13 @@ const Hero = () => {
             >
                 <ChevronDown size={32} />
             </motion.div>
+
+            {/* Modal نجاح التحميل */}
+            <DownloadSuccessModal
+                isOpen={showModal}
+                onClose={() => setShowModal(false)}
+                apkPath={downloadedApkPath}
+            />
         </section>
     );
 };

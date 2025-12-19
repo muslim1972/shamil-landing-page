@@ -1,7 +1,12 @@
 import { motion } from 'framer-motion';
 import { Download as DownloadIcon, Smartphone, CheckCircle2 } from 'lucide-react';
+import { useState } from 'react';
+import DownloadSuccessModal from '../components/DownloadSuccessModal';
 
 const Download = () => {
+    const [showModal, setShowModal] = useState(false);
+    const [downloadedApkPath, setDownloadedApkPath] = useState('');
+
     const handleDownload = (e: React.MouseEvent) => {
         e.preventDefault();
 
@@ -21,6 +26,10 @@ const Download = () => {
             link.href = downloadUrl;
             link.download = 'ShamilApp.apk';
             link.click();
+
+            // عرض المودال بعد بدء التحميل
+            setDownloadedApkPath(downloadUrl);
+            setShowModal(true);
         }
     };
 
@@ -115,6 +124,13 @@ const Download = () => {
 
                 </div>
             </div>
+
+            {/* Modal نجاح التحميل */}
+            <DownloadSuccessModal
+                isOpen={showModal}
+                onClose={() => setShowModal(false)}
+                apkPath={downloadedApkPath}
+            />
         </section>
     );
 };
