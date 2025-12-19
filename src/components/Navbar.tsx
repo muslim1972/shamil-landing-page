@@ -85,6 +85,7 @@ const Navbar = () => {
         // التحقق إذا كنا في iframe
         if (window.parent !== window) {
             // داخل التطبيق - إرسال رسالة للتطبيق الأم
+            console.log('PostMessage: Sending DOWNLOAD_APK to parent', { url: downloadUrl });
             window.parent.postMessage({
                 type: 'DOWNLOAD_APK',
                 url: downloadUrl,
