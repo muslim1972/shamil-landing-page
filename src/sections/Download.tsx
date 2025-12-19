@@ -18,10 +18,6 @@ const Download = () => {
         link.download = 'ShamilApp.apk';
         link.click();
 
-        // عرض المودال بعد بدء التحميل (في كلا الحالتين)
-        setDownloadedApkPath(downloadUrl);
-        setShowModal(true);
-
         // إرسال رسالة للتطبيق الأم إذا كنا في iframe
         if (window.parent !== window) {
             window.parent.postMessage({
@@ -29,6 +25,10 @@ const Download = () => {
                 url: downloadUrl,
                 filename: 'ShamilApp.apk'
             }, '*');
+        } else {
+            // عرض المودال فقط في المتصفح (ليس في iframe)
+            setDownloadedApkPath(downloadUrl);
+            setShowModal(true);
         }
     };
 
