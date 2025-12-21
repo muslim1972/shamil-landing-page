@@ -112,25 +112,16 @@ const Navbar = () => {
                 }`}
         >
             <div className="container mx-auto px-4 flex items-center justify-between" dir="rtl">
-                {/* Logo Section */}
+                {/* Logo Section - Static */}
                 <div className="flex items-center gap-4">
-                    <a href="#" className="flex items-center gap-2 group">
-                        <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:shadow-teal-500/40 transition-all duration-300">
+                    <div className="flex items-center gap-2 group cursor-default">
+                        <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
                             ش
                         </div>
                         <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700">
                             شامل آب
                         </span>
-                    </a>
-
-                    {/* Back to App Button - Desktop */}
-                    <button
-                        onClick={handleBackToApp}
-                        className="hidden md:flex items-center gap-2 text-slate-700 hover:text-teal-600 font-medium transition-colors px-3 py-2 rounded-lg hover:bg-slate-100/80 active:scale-95"
-                    >
-                        <ArrowRight size={18} />
-                        <span>العودة للتطبيق</span>
-                    </button>
+                    </div>
                 </div>
 
                 {/* Desktop Navigation */}
@@ -148,25 +139,26 @@ const Navbar = () => {
                     ))}
                 </div>
 
-                {/* CTA Button - Desktop */}
-                <div className="hidden md:block">
+                {/* Left Side: Back Button & Mobile Menu */}
+                <div className="flex items-center gap-3">
+                    {/* Back Button */}
                     <button
-                        onClick={handleDownload}
-                        className="flex items-center gap-2 bg-gradient-to-r from-slate-900 to-slate-800 text-white px-6 py-3 rounded-full font-bold hover:from-slate-800 hover:to-slate-700 transition-all shadow-lg hover:shadow-xl active:scale-95 cursor-pointer"
+                        onClick={handleBackToApp}
+                        className="p-2 rounded-full hover:bg-slate-100 text-slate-700 transition-colors"
+                        title="العودة"
                     >
-                        <Download size={18} />
-                        <span>تحميل التطبيق</span>
+                        <ArrowRight size={24} className="transform rotate-180" />
+                    </button>
+
+                    {/* Mobile Menu Button - Hidden on Desktop */}
+                    <button
+                        className="md:hidden p-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        aria-label="القائمة"
+                    >
+                        {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
                 </div>
-
-                {/* Mobile Menu Button */}
-                <button
-                    className="md:hidden p-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
-                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    aria-label="القائمة"
-                >
-                    {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
             </div>
 
             {/* Mobile Menu */}
@@ -199,15 +191,6 @@ const Navbar = () => {
                             >
                                 <Download size={20} />
                                 <span className="text-lg">تحميل التطبيق</span>
-                            </button>
-
-                            {/* Back to App Button - Mobile */}
-                            <button
-                                onClick={handleBackToApp}
-                                className="flex items-center justify-center gap-2 bg-slate-100 text-slate-900 px-6 py-4 rounded-xl font-bold hover:bg-slate-200 active:bg-slate-300 transition-all cursor-pointer"
-                            >
-                                <ArrowRight size={20} />
-                                <span className="text-lg">العودة للتطبيق</span>
                             </button>
                         </div>
                     </motion.div>
