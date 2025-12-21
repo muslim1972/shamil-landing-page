@@ -8,6 +8,7 @@ import About from './sections/About';
 import PrivacyPolicy from './sections/PrivacyPolicy';
 import TermsOfService from './sections/TermsOfService';
 import Download from './sections/Download';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Download />
       </main>
       <Footer />
+      <ScrollToTop />
     </div>
   );
 }

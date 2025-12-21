@@ -164,8 +164,6 @@ const Hero = () => {
                     className="relative order-1 lg:order-2 flex justify-center"
                 >
                     <motion.div
-                        animate={{ x: [0, 40, -40, 0] }}
-                        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                         className="relative w-[300px] h-[600px] bg-slate-900 rounded-[3rem] border-8 border-slate-900 shadow-2xl overflow-hidden">
                         {/* Screen Content with Image Rotation */}
                         <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900">
