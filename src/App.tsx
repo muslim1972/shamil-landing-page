@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Hero from './sections/Hero';
@@ -11,16 +10,10 @@ import TermsOfService from './sections/TermsOfService';
 import Download from './sections/Download';
 
 function App() {
-  useEffect(() => {
-    // Force light mode
-    document.documentElement.classList.remove('dark');
-    localStorage.setItem('theme', 'light');
-  }, []);
-
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 overflow-x-hidden">
+    <div className="min-h-screen w-full max-w-[100vw] bg-slate-50 dark:bg-slate-900 font-sans text-slate-900 dark:text-slate-50 overflow-x-hidden">
       <Navbar />
-      <main>
+      <main className="w-full">
         <Hero />
         <Showcase />
         <Features />
