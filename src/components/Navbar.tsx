@@ -115,9 +115,11 @@ const Navbar = () => {
                 {/* Logo Section - Static */}
                 <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2 group cursor-default">
-                        <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                            ش
-                        </div>
+                        <img
+                            src={`${import.meta.env.BASE_URL}images/logo.png`}
+                            alt="شامل آب"
+                            className="w-10 h-10 rounded-xl shadow-lg"
+                        />
                         <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700">
                             شامل آب
                         </span>
@@ -141,15 +143,6 @@ const Navbar = () => {
 
                 {/* Left Side: Back Button & Mobile Menu */}
                 <div className="flex items-center gap-3">
-                    {/* Back Button */}
-                    <button
-                        onClick={handleBackToApp}
-                        className="p-2 rounded-full hover:bg-slate-100 text-slate-700 transition-colors"
-                        title="العودة"
-                    >
-                        <ArrowRight size={24} className="transform rotate-180" />
-                    </button>
-
                     {/* Mobile Menu Button - Hidden on Desktop */}
                     <button
                         className="md:hidden p-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
@@ -157,6 +150,15 @@ const Navbar = () => {
                         aria-label="القائمة"
                     >
                         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                    </button>
+
+                    {/* Back Button */}
+                    <button
+                        onClick={handleBackToApp}
+                        className="p-2 rounded-full hover:bg-slate-100 text-slate-700 transition-colors"
+                        title="العودة"
+                    >
+                        <ArrowRight size={24} className="transform rotate-180" />
                     </button>
                 </div>
             </div>
