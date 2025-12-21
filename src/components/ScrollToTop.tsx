@@ -29,12 +29,12 @@ const ScrollToTop = () => {
         <button
             onClick={scrollToTop}
             className={`
-                fixed bottom-8 left-8 z-[9999]
+                fixed bottom-24 left-8 z-[9999]
                 p-3 rounded-full
-                bg-slate-900/80 dark:bg-white/80 backdrop-blur-md
+                bg-slate-900/50 dark:bg-white/50 backdrop-blur-sm
                 text-white dark:text-slate-900 shadow-lg border border-white/20 dark:border-slate-900/20
-                transform transition-all duration-500 ease-in-out
-                hover:bg-slate-900 dark:hover:bg-white hover:scale-110 hover:shadow-2xl
+                transform transition-all duration-300 ease-in-out
+                hover:bg-slate-900 hover:dark:bg-white hover:opacity-100 hover:scale-110 hover:shadow-2xl
                 group
                 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}
             `}
