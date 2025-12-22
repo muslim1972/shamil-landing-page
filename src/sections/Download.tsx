@@ -7,6 +7,9 @@ const Download = () => {
     const [showModal, setShowModal] = useState(false);
     const [downloadedApkPath, setDownloadedApkPath] = useState('');
 
+    // الكشف عن بيئة التشغيل (داخل التطبيق أم متصفح عادي)
+    const isEmbedded = window.parent !== window;
+
     const handleDownload = (e: React.MouseEvent) => {
         e.preventDefault();
 
@@ -89,7 +92,7 @@ const Download = () => {
                             className="inline-flex items-center gap-3 bg-gradient-to-r from-primary-600 to-secondary-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold text-lg md:text-xl shadow-xl shadow-primary-500/25 hover:shadow-2xl hover:shadow-primary-500/40 transition-all cursor-pointer"
                         >
                             <DownloadIcon size={24} />
-                            <span>تحميل التطبيق</span>
+                            <span>{isEmbedded ? 'تحديث التطبيق' : 'تحميل التطبيق'}</span>
                         </motion.button>
 
                         <p className="mt-3 md:mt-4 text-xs md:text-sm text-slate-400">

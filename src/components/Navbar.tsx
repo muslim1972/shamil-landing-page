@@ -10,6 +10,9 @@ const Navbar = () => {
     const [downloadedApkPath, setDownloadedApkPath] = useState('');
     const navRef = useRef<HTMLElement | null>(null);
 
+    // الكشف عن بيئة التشغيل (داخل التطبيق أم متصفح عادي)
+    const isEmbedded = window.parent !== window;
+
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 20);
@@ -192,7 +195,7 @@ const Navbar = () => {
                                 className="flex items-center justify-center gap-2 bg-gradient-to-r from-teal-600 to-cyan-600 text-white px-6 py-4 rounded-xl font-bold shadow-lg shadow-teal-500/30 hover:shadow-teal-500/50 active:scale-95 transition-all cursor-pointer mt-2"
                             >
                                 <Download size={20} />
-                                <span className="text-lg">تحميل التطبيق</span>
+                                <span className="text-lg">{isEmbedded ? 'تحديث التطبيق' : 'تحميل التطبيق'}</span>
                             </button>
                         </div>
                     </motion.div>

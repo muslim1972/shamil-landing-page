@@ -20,6 +20,9 @@ const Hero = () => {
     const [showModal, setShowModal] = useState(false);
     const [downloadedApkPath, setDownloadedApkPath] = useState('');
 
+    // الكشف عن بيئة التشغيل (داخل التطبيق أم متصفح عادي)
+    const isEmbedded = window.parent !== window;
+
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex(prev => {
@@ -127,8 +130,8 @@ const Hero = () => {
                             className="flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold shadow-lg shadow-primary-500/25 transition-all hover:opacity-90 order-1 sm:order-2 text-sm sm:text-base cursor-pointer"
                         >
                             <Download size={18} className="" style={{ color: '#ffffff' }} />
-                            <span className="hidden sm:inline" style={{ color: '#ffffff' }}>حمل التطبيق</span>
-                            <span className="sm:hidden" style={{ color: '#ffffff' }}>تحميل</span>
+                            <span className="hidden sm:inline" style={{ color: '#ffffff' }}>{isEmbedded ? 'تحديث التطبيق' : 'حمل التطبيق'}</span>
+                            <span className="sm:hidden" style={{ color: '#ffffff' }}>{isEmbedded ? 'تحديث' : 'تحميل'}</span>
                         </motion.button>
                     </div>
 
