@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import p1 from '/images/p1.png';
 
 const Showcase = () => {
     return (
@@ -14,7 +15,7 @@ const Showcase = () => {
                     {/* Image Container */}
                     <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white dark:border-slate-700">
                         <img
-                            src={`${import.meta.env.BASE_URL}images/p1.jpg`}
+                            src={p1}
                             alt="تطبيق شامل - عرض توضيحي"
                             className="w-full h-auto object-cover"
                         />

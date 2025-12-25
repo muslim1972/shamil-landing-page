@@ -54,7 +54,7 @@ const FeatureDetails = () => {
             bgGradient: 'from-indigo-100 to-blue-100 dark:from-indigo-900/40 dark:to-blue-900/40',
             icon: <MessageCircle size={40} className="text-white" />,
             videoPlaceholder: 'فيديو استعراض المحادثات',
-            widget: '/images/Wedget.jpeg',
+            widget: '/images/Wedget.png',
             videoSrc: '/videos/conversations.mp4'
         },
         {
