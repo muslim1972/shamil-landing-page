@@ -47,7 +47,7 @@ const Hero = () => {
     const handleDownload = (e: React.MouseEvent) => {
         e.preventDefault();
 
-        const downloadUrl = `${window.location.origin}/shamil-landing-page/apk/app-debug.apk`;
+        const downloadUrl = `${window.location.origin}/shamil-landing-page/apk/ShamilApp.apk`;
 
         // التحقق إذا كنا في iframe
         if (window.parent !== window) {
