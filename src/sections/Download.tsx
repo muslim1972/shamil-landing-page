@@ -1,39 +1,12 @@
 import { motion } from 'framer-motion';
 import { Download as DownloadIcon, Smartphone, CheckCircle2 } from 'lucide-react';
-import { useState } from 'react';
-import DownloadSuccessModal from '../components/DownloadSuccessModal';
+import { useDownload } from '../context/DownloadContext';
 
 const Download = () => {
-    const [showModal, setShowModal] = useState(false);
-    const [downloadedApkPath, setDownloadedApkPath] = useState('');
+    const { isDownloading, handleDownload } = useDownload();
 
     // الكشف عن بيئة التشغيل (داخل التطبيق أم متصفح عادي)
     const isEmbedded = window.parent !== window;
-
-    const handleDownload = (e: React.MouseEvent) => {
-        e.preventDefault();
-
-        const downloadUrl = `${window.location.origin}${import.meta.env.BASE_URL}apk/ShamilApp.apk`;
-
-        // التحقق إذا كنا في iframe
-        if (window.parent !== window) {
-            // داخل التطبيق - إرسال رسالة للتطبيق الأم
-            window.parent.postMessage({
-                type: 'DOWNLOAD_APK',
-                url: downloadUrl,
-                filename: 'ShamilApp.apk'
-            }, '*');
-        } else {
-            // في المتصفح - بدء التحميل وعرض المودال
-            const link = document.createElement('a');
-            link.href = downloadUrl;
-            link.download = 'ShamilApp.apk';
-            link.click();
-
-            setDownloadedApkPath(downloadUrl);
-            setShowModal(true);
-        }
-    };
 
     return (
         <section id="download" className="py-16 md:py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
@@ -86,13 +59,22 @@ const Download = () => {
                         </ul>
 
                         <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                            whileHover={!isDownloading ? { scale: 1.05 } : {}}
+                            whileTap={!isDownloading ? { scale: 0.95 } : {}}
                             onClick={handleDownload}
-                            className="inline-flex items-center gap-3 bg-gradient-to-r from-primary-600 to-secondary-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold text-lg md:text-xl shadow-xl shadow-primary-500/25 hover:shadow-2xl hover:shadow-primary-500/40 transition-all cursor-pointer"
+                            disabled={isDownloading}
+                            className={`inline-flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold text-lg md:text-xl shadow-xl transition-all cursor-pointer ${isDownloading
+                                ? 'bg-slate-600 cursor-not-allowed text-slate-400 shadow-none'
+                                : 'bg-gradient-to-r from-primary-600 to-secondary-600 text-white shadow-primary-500/25 hover:shadow-2xl hover:shadow-primary-500/40'
+                                }`}
                         >
-                            <DownloadIcon size={24} />
-                            <span>{isEmbedded ? 'تحديث التطبيق' : 'تحميل التطبيق'}</span>
+                            <DownloadIcon size={24} className={isDownloading ? 'animate-bounce' : ''} />
+                            <span>
+                                {isDownloading
+                                    ? 'جارٍ التحميل...'
+                                    : (isEmbedded ? 'تحديث التطبيق' : 'تحميل التطبيق')
+                                }
+                            </span>
                         </motion.button>
 
                         <p className="mt-3 md:mt-4 text-xs md:text-sm text-slate-400">
@@ -127,12 +109,6 @@ const Download = () => {
                 </div>
             </div>
 
-            {/* Modal نجاح التحميل */}
-            <DownloadSuccessModal
-                isOpen={showModal}
-                onClose={() => setShowModal(false)}
-                apkPath={downloadedApkPath}
-            />
         </section>
     );
 };

@@ -2,13 +2,13 @@ import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Download, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import DownloadSuccessModal from './DownloadSuccessModal';
+import { useDownload } from '../context/DownloadContext';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [showModal, setShowModal] = useState(false);
-    const [downloadedApkPath, setDownloadedApkPath] = useState('');
     const navRef = useRef<HTMLElement | null>(null);
+    const { isDownloading, handleDownload, showModal, setShowModal, downloadedApkPath } = useDownload();
 
     // الكشف عن بيئة التشغيل (داخل التطبيق أم متصفح عادي)
     const isEmbedded = window.parent !== window;
@@ -77,33 +77,9 @@ const Navbar = () => {
         }
     };
 
-    const handleDownload = (e: React.MouseEvent) => {
-        e.preventDefault();
-
-        // إغلاق القائمة المحمولة
+    const onDownloadClick = (e: React.MouseEvent) => {
         setIsMobileMenuOpen(false);
-
-        const downloadUrl = `${window.location.origin}${import.meta.env.BASE_URL}apk/ShamilApp.apk`;
-
-        // التحقق إذا كنا في iframe
-        if (window.parent !== window) {
-            // داخل التطبيق - إرسال رسالة للتطبيق الأم
-            console.log('PostMessage: Sending DOWNLOAD_APK to parent', { url: downloadUrl });
-            window.parent.postMessage({
-                type: 'DOWNLOAD_APK',
-                url: downloadUrl,
-                filename: 'ShamilApp.apk'
-            }, '*');
-        } else {
-            // في المتصفح - بدء التحميل وعرض المودال
-            const link = document.createElement('a');
-            link.href = downloadUrl;
-            link.download = 'ShamilApp.apk';
-            link.click();
-
-            setDownloadedApkPath(downloadUrl);
-            setShowModal(true);
-        }
+        handleDownload(e);
     };
 
     return (
@@ -191,11 +167,20 @@ const Navbar = () => {
 
                             {/* Download Button - Mobile */}
                             <button
-                                onClick={handleDownload}
-                                className="flex items-center justify-center gap-2 bg-gradient-to-r from-teal-600 to-cyan-600 text-white px-6 py-4 rounded-xl font-bold shadow-lg shadow-teal-500/30 hover:shadow-teal-500/50 active:scale-95 transition-all cursor-pointer mt-2"
+                                onClick={onDownloadClick}
+                                disabled={isDownloading}
+                                className={`flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-bold shadow-lg transition-all cursor-pointer mt-2 ${isDownloading
+                                        ? 'bg-slate-400 cursor-not-allowed text-slate-100'
+                                        : 'bg-gradient-to-r from-teal-600 to-cyan-600 text-white shadow-teal-500/30 hover:shadow-teal-500/50 active:scale-95'
+                                    }`}
                             >
-                                <Download size={20} />
-                                <span className="text-lg">{isEmbedded ? 'تحديث التطبيق' : 'تحميل التطبيق'}</span>
+                                <Download size={20} className={isDownloading ? 'animate-bounce' : ''} />
+                                <span className="text-lg">
+                                    {isDownloading
+                                        ? 'جارٍ التحميل...'
+                                        : (isEmbedded ? 'تحديث التطبيق' : 'تحميل التطبيق')
+                                    }
+                                </span>
                             </button>
                         </div>
                     </motion.div>

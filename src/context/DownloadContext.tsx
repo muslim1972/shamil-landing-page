@@ -1,0 +1,71 @@
+import React, { createContext, useContext, useState, type ReactNode } from 'react';
+
+interface DownloadContextType {
+    isDownloading: boolean;
+    handleDownload: (e: React.MouseEvent) => void;
+    showModal: boolean;
+    setShowModal: (show: boolean) => void;
+    downloadedApkPath: string;
+}
+
+const DownloadContext = createContext<DownloadContextType | undefined>(undefined);
+
+export const DownloadProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+    const [isDownloading, setIsDownloading] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [downloadedApkPath, setDownloadedApkPath] = useState('');
+
+    // الكشف عن بيئة التشغيل (داخل التطبيق أم متصفح عادي)
+    const isEmbedded = window.parent !== window;
+
+    const handleDownload = (e: React.MouseEvent) => {
+        e.preventDefault();
+
+        if (isDownloading) return;
+
+        setIsDownloading(true);
+
+        const downloadUrl = `${window.location.origin}${import.meta.env.BASE_URL}apk/ShamilApp.apk`;
+
+        // التحقق إذا كنا في iframe
+        if (isEmbedded) {
+            // داخل التطبيق - إرسال رسالة للتطبيق الأم
+            console.log('PostMessage: Sending DOWNLOAD_APK to parent', { url: downloadUrl });
+            window.parent.postMessage({
+                type: 'DOWNLOAD_APK',
+                url: downloadUrl,
+                filename: 'ShamilApp.apk'
+            }, '*');
+
+            // إعادة التفعيل بعد فترة قصيرة للسماح بالمحاولة مرة أخرى إذا فشل
+            setTimeout(() => setIsDownloading(false), 5000);
+        } else {
+            // في المتصفح - بدء التحميل وعرض المودال
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = 'ShamilApp.apk';
+            link.click();
+
+            setDownloadedApkPath(downloadUrl);
+            setShowModal(true);
+
+            // في المتصفح، نترك الزر معطلاً لفترة أطول قليلاً، أو حتى يغلق المستخدم المودال
+            // لكن هنا سنجعله مؤقتاً أيضاً لمنع النقرات المزدوجة السريعة
+            setTimeout(() => setIsDownloading(false), 3000);
+        }
+    };
+
+    return (
+        <DownloadContext.Provider value={{ isDownloading, handleDownload, showModal, setShowModal, downloadedApkPath }}>
+            {children}
+        </DownloadContext.Provider>
+    );
+};
+
+export const useDownload = () => {
+    const context = useContext(DownloadContext);
+    if (context === undefined) {
+        throw new Error('useDownload must be used within a DownloadProvider');
+    }
+    return context;
+};

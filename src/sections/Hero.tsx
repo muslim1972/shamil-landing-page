@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download, Play, ChevronDown, Sparkles } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import DownloadSuccessModal from '../components/DownloadSuccessModal';
+import { useDownload } from '../context/DownloadContext';
 
 // Use relative paths, we will prepend BASE_URL
 const images = [
@@ -17,8 +17,7 @@ const Hero = () => {
     // 0 = Intro Screen
     // 1..N = Images (index - 1)
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [showModal, setShowModal] = useState(false);
-    const [downloadedApkPath, setDownloadedApkPath] = useState('');
+    const { isDownloading, handleDownload } = useDownload();
 
     // الكشف عن بيئة التشغيل (داخل التطبيق أم متصفح عادي)
     const isEmbedded = window.parent !== window;
@@ -42,31 +41,6 @@ const Hero = () => {
     const getImageUrl = (path: string) => {
         // import.meta.env.BASE_URL generally ends with /
         return `${import.meta.env.BASE_URL}${path}`;
-    };
-
-    const handleDownload = (e: React.MouseEvent) => {
-        e.preventDefault();
-
-        const downloadUrl = `${window.location.origin}${import.meta.env.BASE_URL}apk/ShamilApp.apk`;
-
-        // التحقق إذا كنا في iframe
-        if (window.parent !== window) {
-            // داخل التطبيق - إرسال رسالة للتطبيق الأم
-            window.parent.postMessage({
-                type: 'DOWNLOAD_APK',
-                url: downloadUrl,
-                filename: 'ShamilApp.apk'
-            }, '*');
-        } else {
-            // في المتصفح - بدء التحميل وعرض المودال
-            const link = document.createElement('a');
-            link.href = downloadUrl;
-            link.download = 'ShamilApp.apk';
-            link.click();
-
-            setDownloadedApkPath(downloadUrl);
-            setShowModal(true);
-        }
     };
 
     return (
@@ -123,15 +97,30 @@ const Hero = () => {
 
                         {/* Download Button */}
                         <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                            whileHover={!isDownloading ? { scale: 1.05 } : {}}
+                            whileTap={!isDownloading ? { scale: 0.95 } : {}}
                             onClick={handleDownload}
-                            style={{ backgroundColor: '#0284c7', color: '#ffffff' }}
-                            className="flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold shadow-lg shadow-primary-500/25 transition-all hover:opacity-90 order-1 sm:order-2 text-sm sm:text-base cursor-pointer"
+                            disabled={isDownloading}
+                            style={{
+                                backgroundColor: isDownloading ? '#94a3b8' : '#0284c7',
+                                color: '#ffffff',
+                                cursor: isDownloading ? 'not-allowed' : 'pointer'
+                            }}
+                            className="flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold shadow-lg shadow-primary-500/25 transition-all hover:opacity-90 order-1 sm:order-2 text-sm sm:text-base"
                         >
-                            <Download size={18} className="" style={{ color: '#ffffff' }} />
-                            <span className="hidden sm:inline" style={{ color: '#ffffff' }}>{isEmbedded ? 'تحديث التطبيق' : 'حمل التطبيق'}</span>
-                            <span className="sm:hidden" style={{ color: '#ffffff' }}>{isEmbedded ? 'تحديث' : 'تحميل'}</span>
+                            <Download size={18} className={isDownloading ? 'animate-bounce' : ''} style={{ color: '#ffffff' }} />
+                            <span className="hidden sm:inline" style={{ color: '#ffffff' }}>
+                                {isDownloading
+                                    ? 'جارٍ التحميل...'
+                                    : (isEmbedded ? 'تحديث التطبيق' : 'حمل التطبيق')
+                                }
+                            </span>
+                            <span className="sm:hidden" style={{ color: '#ffffff' }}>
+                                {isDownloading
+                                    ? 'جارٍ...'
+                                    : (isEmbedded ? 'تحديث' : 'تحميل')
+                                }
+                            </span>
                         </motion.button>
                     </div>
 
@@ -237,12 +226,6 @@ const Hero = () => {
                 <ChevronDown size={32} />
             </motion.div>
 
-            {/* Modal نجاح التحميل */}
-            <DownloadSuccessModal
-                isOpen={showModal}
-                onClose={() => setShowModal(false)}
-                apkPath={downloadedApkPath}
-            />
         </section>
     );
 };
