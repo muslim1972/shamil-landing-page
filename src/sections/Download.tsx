@@ -4,6 +4,7 @@ import { useDownload } from '../context/DownloadContext';
 
 const Download = () => {
     const { isDownloading, handleDownload } = useDownload();
+    console.log('Download Section Render. IsDownloading:', isDownloading);
 
     // الكشف عن بيئة التشغيل (داخل التطبيق أم متصفح عادي)
     const isEmbedded = window.parent !== window;
@@ -61,11 +62,14 @@ const Download = () => {
                         <motion.button
                             whileHover={!isDownloading ? { scale: 1.05 } : {}}
                             whileTap={!isDownloading ? { scale: 0.95 } : {}}
-                            onClick={handleDownload}
+                            onClick={(e) => {
+                                console.log('Download button clicked in section. isDownloading:', isDownloading);
+                                handleDownload(e);
+                            }}
                             disabled={isDownloading}
-                            className={`inline-flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold text-lg md:text-xl shadow-xl transition-all cursor-pointer ${isDownloading
+                            className={`inline-flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold text-lg md:text-xl shadow-xl transition-all ${isDownloading
                                 ? 'bg-slate-600 cursor-not-allowed text-slate-400 shadow-none'
-                                : 'bg-gradient-to-r from-primary-600 to-secondary-600 text-white shadow-primary-500/25 hover:shadow-2xl hover:shadow-primary-500/40'
+                                : 'bg-gradient-to-r from-primary-600 to-secondary-600 text-white shadow-primary-500/25 hover:shadow-2xl hover:shadow-primary-500/40 cursor-pointer'
                                 }`}
                         >
                             <DownloadIcon size={24} className={isDownloading ? 'animate-bounce' : ''} />
@@ -109,7 +113,7 @@ const Download = () => {
                 </div>
             </div>
 
-        </section>
+        </section >
     );
 };
 
