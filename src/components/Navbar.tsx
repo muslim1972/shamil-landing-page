@@ -8,7 +8,7 @@ const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const navRef = useRef<HTMLElement | null>(null);
-    const { isDownloading, handleDownload, showModal, setShowModal, downloadedApkPath } = useDownload();
+    const { isDownloading, handleDownload, showModal, downloadedApkPath, resetDownload } = useDownload();
 
     // الكشف عن بيئة التشغيل (داخل التطبيق أم متصفح عادي)
     const isEmbedded = window.parent !== window;
@@ -170,8 +170,8 @@ const Navbar = () => {
                                 onClick={onDownloadClick}
                                 disabled={isDownloading}
                                 className={`flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-bold shadow-lg transition-all cursor-pointer mt-2 ${isDownloading
-                                        ? 'bg-slate-400 cursor-not-allowed text-slate-100'
-                                        : 'bg-gradient-to-r from-teal-600 to-cyan-600 text-white shadow-teal-500/30 hover:shadow-teal-500/50 active:scale-95'
+                                    ? 'bg-slate-400 cursor-not-allowed text-slate-100'
+                                    : 'bg-gradient-to-r from-teal-600 to-cyan-600 text-white shadow-teal-500/30 hover:shadow-teal-500/50 active:scale-95'
                                     }`}
                             >
                                 <Download size={20} className={isDownloading ? 'animate-bounce' : ''} />
@@ -190,7 +190,7 @@ const Navbar = () => {
             {/* Modal نجاح التحميل */}
             <DownloadSuccessModal
                 isOpen={showModal}
-                onClose={() => setShowModal(false)}
+                onClose={resetDownload}
                 apkPath={downloadedApkPath}
             />
         </nav>

@@ -6,6 +6,7 @@ interface DownloadContextType {
     showModal: boolean;
     setShowModal: (show: boolean) => void;
     downloadedApkPath: string;
+    resetDownload: () => void;
 }
 
 const DownloadContext = createContext<DownloadContextType | undefined>(undefined);
@@ -17,6 +18,12 @@ export const DownloadProvider: React.FC<{ children: ReactNode }> = ({ children }
 
     // الكشف عن بيئة التشغيل (داخل التطبيق أم متصفح عادي)
     const isEmbedded = window.parent !== window;
+
+    const resetDownload = () => {
+        setIsDownloading(false);
+        setShowModal(false);
+        setDownloadedApkPath('');
+    };
 
     const handleDownload = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -49,14 +56,13 @@ export const DownloadProvider: React.FC<{ children: ReactNode }> = ({ children }
             setDownloadedApkPath(downloadUrl);
             setShowModal(true);
 
-            // في المتصفح، نترك الزر معطلاً لفترة أطول قليلاً، أو حتى يغلق المستخدم المودال
-            // لكن هنا سنجعله مؤقتاً أيضاً لمنع النقرات المزدوجة السريعة
-            setTimeout(() => setIsDownloading(false), 3000);
+            // في المتصفح، لا نعيد تعيين setIsDownloading(false) أوتوماتيكياً
+            // سيتم ذلك عند إغلاق المودال عن طريق استدعاء resetDownload
         }
     };
 
     return (
-        <DownloadContext.Provider value={{ isDownloading, handleDownload, showModal, setShowModal, downloadedApkPath }}>
+        <DownloadContext.Provider value={{ isDownloading, handleDownload, showModal, setShowModal, downloadedApkPath, resetDownload }}>
             {children}
         </DownloadContext.Provider>
     );
