@@ -1,4 +1,4 @@
-import { Instagram, Mail, Heart } from 'lucide-react';
+import { Github, Instagram, Mail, Heart } from 'lucide-react';
 
 const Footer = () => {
     const email = 'muslimakkeel+cloud@gmail.com';
@@ -25,13 +25,13 @@ const Footer = () => {
                             >
                                 <Mail size={20} />
                             </a>
-                            {/* Email (as GitHub replacement) */}
+                            {/* GitHub (linked to email) */}
                             <a
                                 href={`mailto:${email}`}
                                 className="hover:text-white transition-colors"
                                 title="تواصل معنا"
                             >
-                                <Mail size={20} />
+                                <Github size={20} />
                             </a>
                             {/* Instagram (placeholder) */}
                             <a
