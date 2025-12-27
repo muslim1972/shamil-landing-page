@@ -16,7 +16,7 @@ const Footer = () => {
                         <p className="leading-relaxed mb-6 max-w-md ml-auto">
                             تطبيق شامل يهدف إلى توفير بيئة رقمية آمنة ومتكاملة للمستخدم العربي، نجمع بين التواصل والتعلم والترفيه في مكان واحد.
                         </p>
-                        <div className="flex gap-4 justify-end md:justify-start">
+                        <div className="flex gap-4 justify-center">
                             {/* Email */}
                             <a
                                 href={`mailto:${email}`}

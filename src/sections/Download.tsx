@@ -112,7 +112,7 @@ const Download = () => {
                                 <img
                                     src="/images/logo.png"
                                     alt="شامل آب"
-                                    className="w-40 h-40 md:w-52 md:h-52 object-contain drop-shadow-2xl"
+                                    className="w-full h-full object-contain p-4 drop-shadow-2xl"
                                 />
                             </div>
 
