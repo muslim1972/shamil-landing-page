@@ -19,6 +19,31 @@ export const DownloadProvider: React.FC<{ children: ReactNode }> = ({ children }
     // الكشف عن بيئة التشغيل (داخل التطبيق أم متصفح عادي)
     const isEmbedded = window.parent !== window;
 
+    // الاستماع لرسائل من التطبيق الرئيسي
+    React.useEffect(() => {
+        const handleMessage = (event: MessageEvent) => {
+            console.log('📩 Landing Page received message:', event.data);
+
+            // معالجة رسالة اكتمال التحميل
+            if (event.data?.type === 'DOWNLOAD_COMPLETE') {
+                console.log('✅ Download completed, re-enabling buttons');
+                setIsDownloading(false);
+            }
+
+            // معالجة رسالة فشل التحميل
+            if (event.data?.type === 'DOWNLOAD_FAILED') {
+                console.log('❌ Download failed, re-enabling buttons');
+                setIsDownloading(false);
+            }
+        };
+
+        // إضافة المستمع فقط إذا كنا داخل iframe
+        if (isEmbedded) {
+            window.addEventListener('message', handleMessage);
+            return () => window.removeEventListener('message', handleMessage);
+        }
+    }, [isEmbedded]);
+
     const resetDownload = () => {
         setIsDownloading(false);
         setShowModal(false);
@@ -44,8 +69,8 @@ export const DownloadProvider: React.FC<{ children: ReactNode }> = ({ children }
                 filename: 'ShamilApp.apk'
             }, '*');
 
-            // إعادة التفعيل بعد فترة قصيرة للسماح بالمحاولة مرة أخرى إذا فشل
-            setTimeout(() => setIsDownloading(false), 5000);
+            // لا نعيد التفعيل تلقائياً - ننتظر رسالة DOWNLOAD_COMPLETE من التطبيق
+            // سيتم إعادة التفعيل عند استقبال رسالة من التطبيق الرئيسي
         } else {
             // في المتصفح - بدء التحميل وعرض المودال
             const link = document.createElement('a');
