@@ -1,6 +1,8 @@
-import { Github, Twitter, Mail, Heart } from 'lucide-react';
+import { Instagram, Mail, Heart } from 'lucide-react';
 
 const Footer = () => {
+    const email = 'muslimakkeel+cloud@gmail.com';
+
     return (
         <footer className="bg-slate-950 text-slate-400 py-12 border-t border-slate-800">
             <div className="container mx-auto px-4">
@@ -15,9 +17,31 @@ const Footer = () => {
                             تطبيق شامل يهدف إلى توفير بيئة رقمية آمنة ومتكاملة للمستخدم العربي، نجمع بين التواصل والتعلم والترفيه في مكان واحد.
                         </p>
                         <div className="flex gap-4 justify-end md:justify-start">
-                            <a href="#" className="hover:text-white transition-colors"><Twitter size={20} /></a>
-                            <a href="#" className="hover:text-white transition-colors"><Github size={20} /></a>
-                            <a href="#" className="hover:text-white transition-colors"><Mail size={20} /></a>
+                            {/* Email */}
+                            <a
+                                href={`mailto:${email}`}
+                                className="hover:text-white transition-colors"
+                                title={email}
+                            >
+                                <Mail size={20} />
+                            </a>
+                            {/* Email (as GitHub replacement) */}
+                            <a
+                                href={`mailto:${email}`}
+                                className="hover:text-white transition-colors"
+                                title="تواصل معنا"
+                            >
+                                <Mail size={20} />
+                            </a>
+                            {/* Instagram (placeholder) */}
+                            <a
+                                href="#"
+                                className="hover:text-white transition-colors opacity-50 cursor-not-allowed"
+                                title="قريباً"
+                                onClick={(e) => e.preventDefault()}
+                            >
+                                <Instagram size={20} />
+                            </a>
                         </div>
                     </div>
 
@@ -34,9 +58,9 @@ const Footer = () => {
                     <div>
                         <h4 className="text-white font-bold mb-4">تواصل معنا</h4>
                         <ul className="space-y-2">
-                            <li>الدعم الفني</li>
-                            <li>سياسة الخصوصية</li>
-                            <li>شروط الاستخدام</li>
+                            <li><a href={`mailto:${email}`} className="hover:text-primary-400 transition-colors">الدعم الفني</a></li>
+                            <li><a href="#privacy" className="hover:text-primary-400 transition-colors">سياسة الخصوصية</a></li>
+                            <li><a href="#terms" className="hover:text-primary-400 transition-colors">شروط الاستخدام</a></li>
                         </ul>
                     </div>
                 </div>

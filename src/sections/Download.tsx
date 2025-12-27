@@ -1,10 +1,25 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Download as DownloadIcon, Smartphone, CheckCircle2 } from 'lucide-react';
+import { Download as DownloadIcon, CheckCircle2 } from 'lucide-react';
 import { useDownload } from '../context/DownloadContext';
+
+interface VersionInfo {
+    version: string;
+    downloadUrl: string;
+    releaseNotes: string;
+}
 
 const Download = () => {
     const { isDownloading, handleDownload } = useDownload();
-    console.log('Download Section Render. IsDownloading:', isDownloading);
+    const [versionInfo, setVersionInfo] = useState<VersionInfo | null>(null);
+
+    // جلب معلومات الإصدار من version.json
+    useEffect(() => {
+        fetch('/version.json')
+            .then(res => res.json())
+            .then((data: VersionInfo) => setVersionInfo(data))
+            .catch(err => console.error('Failed to fetch version:', err));
+    }, []);
 
     // الكشف عن بيئة التشغيل (داخل التطبيق أم متصفح عادي)
     const isEmbedded = window.parent !== window;
@@ -62,10 +77,7 @@ const Download = () => {
                         <motion.button
                             whileHover={!isDownloading ? { scale: 1.05 } : {}}
                             whileTap={!isDownloading ? { scale: 0.95 } : {}}
-                            onClick={(e) => {
-                                console.log('Download button clicked in section. isDownloading:', isDownloading);
-                                handleDownload(e);
-                            }}
+                            onClick={(e) => handleDownload(e)}
                             disabled={isDownloading}
                             className={`inline-flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold text-lg md:text-xl shadow-xl transition-all ${isDownloading
                                 ? 'bg-slate-600 cursor-not-allowed text-slate-400 shadow-none'
@@ -82,7 +94,7 @@ const Download = () => {
                         </motion.button>
 
                         <p className="mt-3 md:mt-4 text-xs md:text-sm text-slate-400">
-                            الإصدار: 1.1.0 | الحجم: 30MB | التحديث: 2025
+                            الإصدار: {versionInfo?.version || '...'} | الحجم: 30MB | التحديث: 2025
                         </p>
                     </motion.div>
 
@@ -94,7 +106,15 @@ const Download = () => {
                     >
                         <div className="relative w-full max-w-xs md:max-w-md">
                             <div className="absolute inset-0 bg-white/20 blur-3xl rounded-full animate-pulse-slow"></div>
-                            <Smartphone size={300} strokeWidth={0.5} className="text-white/90 relative z-10 drop-shadow-2xl w-full h-auto" />
+
+                            {/* Phone Frame with Logo */}
+                            <div className="relative z-10 w-48 h-80 md:w-64 md:h-[420px] mx-auto border-4 border-white/20 rounded-[2.5rem] bg-slate-800/50 backdrop-blur-sm flex items-center justify-center shadow-2xl">
+                                <img
+                                    src="/images/logo.png"
+                                    alt="شامل آب"
+                                    className="w-24 h-24 md:w-32 md:h-32 object-contain drop-shadow-2xl"
+                                />
+                            </div>
 
                             {/* Floating Elements */}
                             <motion.div
