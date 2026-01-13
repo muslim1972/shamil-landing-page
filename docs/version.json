@@ -1,5 +1,6 @@
 {
-    "version": "1.0.5",
+    "version": "1.0.6",
     "downloadUrl": "https://shamelapp.com/apk/ShamilApp.apk",
-    "releaseNotes": "الإصدار الحالي."
+    "releaseNotes": "• تحسينات عامة في الأداء\n• إصلاح بعض الأخطاء\n• تحسين واجهة المستخدم",
+    "forceUpdate": false
 }
