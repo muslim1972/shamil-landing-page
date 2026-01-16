@@ -1,11 +1,11 @@
 name: Super Fast Deploy
+
 on:
   push:
     branches: ["main"]
 
-# إذن الوصول المطلوب للنشر
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -19,16 +19,29 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    timeout-minutes: 5 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # رفع ملف APK إلى Releases لضمان السرعة ومنع توقف التحميل
+      - name: Upload APK to GitHub Releases
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.event.head_commit.message, 'v')
+        with:
+          tag_name: ${{ github.event.head_commit.message }}
+          files: docs/apk/ShamilApp.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # نشر صفحة الهبوط من مجلد docs فقط
       - name: Setup Pages
         uses: actions/configure-pages@v4
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'docs' 
+          path: 'docs'
+          
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
