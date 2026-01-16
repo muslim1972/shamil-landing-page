@@ -57,7 +57,8 @@ export const DownloadProvider: React.FC<{ children: ReactNode }> = ({ children }
 
         setIsDownloading(true);
 
-        const downloadUrl = `${window.location.origin}${import.meta.env.BASE_URL}apk/ShamilApp.apk`;
+        // استخدام رابط Latest Release الثابت من GitHub
+        const downloadUrl = 'https://github.com/muslim1972/shamil-landing-page/releases/latest/download/ShamilApp.apk';
 
         // التحقق إذا كنا في iframe
         if (isEmbedded) {
